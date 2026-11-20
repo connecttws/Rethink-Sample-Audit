@@ -21,6 +21,18 @@ A unified interactive demonstrator combining **Local Business Audit**, **1-on-1 
 
 ---
 
+## 🎭 Pre-Loaded Demonstration Personas
+
+The suite features 1-click sample profiles accessible directly from the pinned top demo bar (`SampleTopBar.tsx`) to enable rapid live pitch demonstrations:
+
+| Persona | Module | Key Diagnostic Metrics | Highlighted Findings |
+| :--- | :--- | :--- | :--- |
+| **Dr. Dental Care Clinic** | 🏢 Business Audit | 5 Pillars, 15 Checkpoints, Local SEO score | Low Google Review velocity, Missing GBP categories, Unclaimed citations |
+| **Aakash Verma** | 🏋️‍♂️ Fitness Diagnostic | Age 32, BMI 27.8 (Overweight), Target -8kg | Sedentary work posture, Core instability, Recovery deficit |
+| **Priya Sharma** | 🥗 Nutrition Audit | Age 29, Eggetarian, Protein Deficit | Suboptimal morning protein intake, High evening glycemic load, Hydration lag |
+
+---
+
 ## ✨ Features & Diagnostic Engines
 
 ### 1. Hub Selection (`/`)
@@ -41,7 +53,7 @@ High-converting diagnostic selector allowing evaluators or clients to choose bet
 Always visible during client walkthroughs with:
 - Live direct shareable client link display.
 - 1-click **"Copy Shareable Link"**.
-- 1-click **"Load Sample Profile"** (`Dr. Dental Care Clinic`, `Aakash Verma`, `Priya Sharma`) for instantaneous demo presentations.
+- 1-click **"Load Sample Profile"** for instantaneous pitch presentations.
 - 1-click **"Switch Audit"** back to the central hub.
 
 ### 4. Zero Database / Universal URL Payload Engine
@@ -52,6 +64,16 @@ Always visible during client walkthroughs with:
 ### 5. Instant WhatsApp Dispatch
 - Clients or coaches enter a WhatsApp phone number.
 - 1-tap **"Send Report on WhatsApp ↗"** pre-formats the executive summary, diagnostic score, and interactive report link.
+
+---
+
+## 📊 Priority Matrix & Report Structure
+
+Every generated report (`/report`) delivers:
+1. **Executive Cover**: Overall audit score, prospect tiering, and date stamp.
+2. **Pillar Score Breakdown**: Detailed percentage gauges across every evaluated pillar.
+3. **Prioritized Action Plan**: Ranked findings (Critical, High, Moderate) with immediate operational fixes.
+4. **WhatsApp Lead Conversion CTA**: Direct engagement loop back to the consultant or coach.
 
 ---
 
