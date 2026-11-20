@@ -145,8 +145,8 @@ export default function AuditHubPage() {
           </div>
 
           <div className="text-right">
-            <span className="text-[11px] font-mono text-slate-600 block">
-              Auditor Access: <span className="text-emerald-600 font-bold">Double-Click Logo</span>
+            <span className="text-xs font-mono font-semibold text-slate-500">
+              Interactive Diagnostic Suite
             </span>
           </div>
         </div>

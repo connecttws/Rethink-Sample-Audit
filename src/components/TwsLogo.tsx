@@ -39,7 +39,7 @@ export function TwsLogo({
     <div
       onDoubleClick={handleTriggerSecret}
       onTouchEnd={handleTouchEnd}
-      title="TWS Diagnostic Suite (Double-click for Auditor History)"
+      title="TWS Diagnostic Suite"
       className={`relative inline-flex items-center cursor-pointer select-none transition-transform active:scale-95 group ${className}`}
     >
       <div className="bg-white px-2.5 py-1 rounded-xl shadow-xs border border-slate-200/90 inline-flex items-center">
