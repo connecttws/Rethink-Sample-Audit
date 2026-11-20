@@ -1,6 +1,6 @@
 # TWS Interactive Sample Diagnostic Suite
 
-A unified interactive demonstrator combining **Local Business Audit**, **1-on-1 Fitness Diagnostic**, and **Clinical Nutrition Audit** for seamless client walkthroughs, live demonstrations, and instant WhatsApp report dispatch.
+A unified interactive clinical & business diagnostic suite combining **TWS Lifestyle & Health Audit**, **1-on-1 Fitness Diagnostic**, and **Clinical Nutrition Audit** for seamless client walkthroughs, live demonstrations, and instant WhatsApp report dispatch.
 
 ---
 
@@ -14,66 +14,57 @@ A unified interactive demonstrator combining **Local Business Audit**, **1-on-1 
 
 - **Framework**: [Next.js 16](https://nextjs.org/) (App Router, Turbopack)
 - **Library**: [React 19](https://react.dev/)
+- **Database / ORM**: [Prisma 6](https://www.prisma.io/) + [Supabase PostgreSQL](https://supabase.com/) (`business_audit.tws_sample_audit`)
 - **Language**: [TypeScript 5](https://www.typescriptlang.org/)
 - **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
 - **Icons**: [Lucide React](https://lucide.dev/)
-- **Architecture**: Pure Client-Side / Session Storage / URL Payload State (Zero Database Required)
+- **Architecture**: Dual Cloud PostgreSQL Sync + Instant Offline / LocalStorage Fallback
 
 ---
 
-## 🎭 Pre-Loaded Demonstration Personas
+## ✨ Key Features & Capabilities
 
-The suite features 1-click sample profiles accessible directly from the pinned top demo bar (`SampleTopBar.tsx`) to enable rapid live pitch demonstrations:
+### 1. Interactive Intake Pop-Up Modal
+- When any diagnostic engine is selected on the Hub (`/`), a modal prompts for:
+  - **Member / Client Name** (Required)
+  - **WhatsApp Mobile Number** (`+91` 10-digit validation)
+- Automatically stores the auditor and prospect details in `localStorage` and `sessionStorage`, pre-filling the questionnaire so clients never have to type their details twice.
 
-| Persona | Module | Key Diagnostic Metrics | Highlighted Findings |
-| :--- | :--- | :--- | :--- |
-| **Dr. Dental Care Clinic** | 🏢 Business Audit | 5 Pillars, 15 Checkpoints, Local SEO score | Low Google Review velocity, Missing GBP categories, Unclaimed citations |
-| **Aakash Verma** | 🏋️‍♂️ Fitness Diagnostic | Age 32, BMI 27.8 (Overweight), Target -8kg | Sedentary work posture, Core instability, Recovery deficit |
-| **Priya Sharma** | 🥗 Nutrition Audit | Age 29, Eggetarian, Protein Deficit | Suboptimal morning protein intake, High evening glycemic load, Hydration lag |
+### 2. Secret Auditor History (Double-Click TWS Logo)
+- **Master Password Protected**: Double-clicking the **TWS Logo** triggers the authorization prompt (`Welcome@123`).
+- **5-Item Pagination**: Loads 5 records initially with a **"View More (+5 Records)"** button to load additional batches.
+- **Auditor Attribution**: Prominently displays the audited client name and an auditor badge:
+  - `👤 Auditor: [Name] (You)` if conducted from this device.
+  - `👤 Auditor: [Name]` if conducted by another team member.
+- **Category Tabs**: Switch between **All Audits**, **Business & Lifestyle**, **Fitness & Biomechanics**, **Clinical Nutrition**, and **Physio / Clinical**.
+- **Search**: Real-time filtering across member name, phone, auditor, and location.
 
----
+### 3. Dedicated Diagnostic Modules
+- 🏢 **`/business` — TWS BMI & Lifestyle Health Audit**:
+  - 5-Pillar daily activity, nutrition, sleep recovery, form prep, and mindset assessment (15 Points).
+- 🏋️‍♂️ **`/fitness` — TWS 1-on-1 Fitness & Biomechanics Diagnostic**:
+  - 6-Pillar posture, joint safety, desk slouch, gym habits, and energy screen (18 Points) with live BMI math.
+- 🥗 **`/nutrition` — TWS Clinical Nutrition & Metabolic Rate Intake**:
+  - 6-Pillar protein density, gut dysbiosis, liquid calorie leaks, and meal cadence screen (18 Points).
 
-## ✨ Features & Diagnostic Engines
+### 4. Cloud Database Persistence (`business_audit.tws_sample_audit`)
+- Submissions automatically save to the Supabase PostgreSQL database table `business_audit.tws_sample_audit` via `POST /api/audits`.
+- Full diagnostic payloads, answers, scores, and findings are stored with dedicated B-Tree indexes for fast historical search.
 
-### 1. Hub Selection (`/`)
-High-converting diagnostic selector allowing evaluators or clients to choose between Business, Fitness, or Nutrition audits, with direct 1-click links and "Copy Shareable Link" actions.
-
-### 2. Dedicated Audit Modules
-- 🏢 **`/business` — Local Business Growth & Digital Audit**:
-  - Evaluates 5 core pillars across 15 diagnostic scoring checkpoints.
-  - Generates revenue-leakage insights, digital footprint analysis, and conversion action plans.
-- 🏋️‍♂️ **`/fitness` — 1-on-1 Fitness & Biomechanics Diagnostic**:
-  - Assesses 6 pillars across 18 points with live BMI calculation and optimal target weight gap.
-  - Evaluates posture, mobility, strength consistency, and cardiovascular baseline.
-- 🥗 **`/nutrition` — Clinical Nutrition & Metabolic Rate Intake**:
-  - Covers 6 clinical pillars across 18 points with protein target estimation and diet preference categorization.
-  - Diagnoses micronutrient variety, gut health, meal timing, and metabolic triggers.
-
-### 3. Pinned Top Shareable Bar (`SampleTopBar.tsx`)
-Always visible during client walkthroughs with:
-- Live direct shareable client link display.
-- 1-click **"Copy Shareable Link"**.
-- 1-click **"Load Sample Profile"** for instantaneous pitch presentations.
-- 1-click **"Switch Audit"** back to the central hub.
-
-### 4. Zero Database / Universal URL Payload Engine
-- Uses in-memory & browser session storage — completely stateless and privacy-preserving.
-- Encodes diagnostic results directly into compressed URL parameters (`?d=...`), allowing generated report links to render on any mobile or desktop browser without a backend database.
-- Zero database credentials or environment variables required — deploys to Vercel in seconds.
-
-### 5. Instant WhatsApp Dispatch
-- Clients or coaches enter a WhatsApp phone number.
-- 1-tap **"Send Report on WhatsApp ↗"** pre-formats the executive summary, diagnostic score, and interactive report link.
+### 5. Instant WhatsApp Dispatch & Clean Reports
+- Removed hardcoded owner numbers (`8368052044`) from client report views.
+- Clients can share their diagnostic report directly via WhatsApp (`wa.me/?text=...`) to any coach or contact.
 
 ---
 
-## 📊 Priority Matrix & Report Structure
+## 📊 Report Structure (`/report`)
 
-Every generated report (`/report`) delivers:
-1. **Executive Cover**: Overall audit score, prospect tiering, and date stamp.
-2. **Pillar Score Breakdown**: Detailed percentage gauges across every evaluated pillar.
-3. **Prioritized Action Plan**: Ranked findings (Critical, High, Moderate) with immediate operational fixes.
-4. **WhatsApp Lead Conversion CTA**: Direct engagement loop back to the consultant or coach.
+Every generated diagnostic report provides:
+1. **Executive Cover**: Overall score (0–100), benchmark tier, prospect biometrics, and reference ID.
+2. **5 / 6 Pillar Score Breakdown**: Self-contained progress bars comparing current score vs optimal capacity.
+3. **Prescribed Turnaround Protocol**: Structured 12-week intervention recommendations.
+4. **Itemized Findings Breakdown**: Transparent audit of all points evaluated with strategic guidance.
+5. **Direct Consultation CTA**: Clean WhatsApp conversion button connecting to the TWS consultation desk.
 
 ---
 
@@ -81,22 +72,29 @@ Every generated report (`/report`) delivers:
 
 ```
 Rethink-Sample-Audit/
-├── public/                                           # Static assets and icons
+├── prisma/
+│   ├── schema.prisma                                     # Prisma multi-schema model for tws_sample_audit
+│   └── create_tws_sample_audit.sql                       # Database DDL and indexing script
+├── public/
+│   └── tws-logo.png                                      # Official TWS branding logo
 ├── src/
 │   ├── app/
-│   │   ├── business/page.tsx                         # Business audit entry
-│   │   ├── fitness/page.tsx                          # Fitness diagnostic entry
-│   │   ├── nutrition/page.tsx                        # Clinical nutrition audit entry
-│   │   ├── report/page.tsx                           # Universal report presentation page
-│   │   ├── globals.css                               # Tailwind v4 styles & custom design tokens
-│   │   ├── layout.tsx                                # Root layout
-│   │   └── page.tsx                                  # Central hub selector
+│   │   ├── api/
+│   │   │   ├── audits/route.ts                           # Cloud audit create & list API
+│   │   │   └── history/route.ts                          # Secret history query API
+│   │   ├── business/page.tsx                             # TWS Lifestyle Health audit entry
+│   │   ├── fitness/page.tsx                              # TWS Fitness diagnostic entry
+│   │   ├── nutrition/page.tsx                            # TWS Clinical Nutrition audit entry
+│   │   ├── report/page.tsx                               # Universal report presentation page
+│   │   ├── globals.css                                   # Tailwind v4 styles & design tokens
+│   │   ├── layout.tsx                                    # Root layout with fonts & metadata
+│   │   └── page.tsx                                      # Central diagnostic selector hub
 │   ├── components/
-│   │   ├── questionnaires/                           # Specialized intake forms
+│   │   ├── questionnaires/                               # Specialized questionnaire forms
 │   │   │   ├── BusinessQuestionnaire.tsx
 │   │   │   ├── FitnessQuestionnaire.tsx
 │   │   │   └── NutritionQuestionnaire.tsx
-│   │   ├── report/                                   # Executive report cards & visualizers
+│   │   ├── report/                                       # Executive report components
 │   │   │   ├── ReportActionPlan.tsx
 │   │   │   ├── ReportBreakdown.tsx
 │   │   │   ├── ReportCover.tsx
@@ -105,14 +103,18 @@ Rethink-Sample-Audit/
 │   │   │   └── ReportWhatsAppCta.tsx
 │   │   ├── AuditCompleteStep.tsx
 │   │   ├── AuditorNav.tsx
-│   │   ├── ContinuousQuestionnaire.tsx
-│   │   └── SampleTopBar.tsx                          # Pinned quick-loader demo bar
+│   │   ├── SampleTopBar.tsx                              # Quick-loader demo bar
+│   │   ├── SecretHistoryModal.tsx                        # Master-password protected history modal
+│   │   ├── StartAuditModal.tsx                           # Intake modal for name & WhatsApp
+│   │   └── TwsLogo.tsx                                   # Interactive double-click logo component
 │   └── lib/
-│       ├── business-data.ts                          # Business diagnostic criteria
-│       ├── fitness-data.ts                           # Fitness criteria & BMI math
-│       ├── nutrition-data.ts                         # Nutrition criteria & dietary tags
-│       ├── session-store.ts                          # Stateless session persistence
-│       └── types.ts                                  # TypeScript definitions
+│       ├── business-data.ts                              # Business diagnostic criteria
+│       ├── fitness-data.ts                               # Fitness criteria & BMI math
+│       ├── history-storage.ts                            # Dual cloud + local history manager
+│       ├── nutrition-data.ts                             # Nutrition criteria & dietary tags
+│       ├── prisma.ts                                     # Shared Prisma client instance
+│       ├── session-store.ts                              # Session persistence & WhatsApp formatter
+│       └── types.ts                                      # TypeScript definitions
 ├── package.json
 └── tsconfig.json
 ```
@@ -128,13 +130,25 @@ cd Rethink-Sample-Audit
 npm install
 ```
 
-### 2. Run Development Server
+### 2. Configure Environment Variables
+Create a `.env` file in the root directory:
+```env
+DATABASE_URL="postgresql://postgres.<user>:<password>@<host>:6543/postgres?pgbouncer=true&connection_limit=1"
+DIRECT_URL="postgresql://postgres.<user>:<password>@<host>:5432/postgres"
+```
+
+### 3. Generate Prisma Client
+```bash
+npx prisma generate
+```
+
+### 4. Run Development Server
 ```bash
 npm run dev
 ```
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-### 3. Build for Production
+### 5. Build for Production
 ```bash
 npm run build
 npm start
@@ -142,15 +156,5 @@ npm start
 
 ---
 
-## 🚀 One-Click Vercel Deployment
-
-Deploy directly without configuring any database or environment variables:
-```bash
-vercel
-```
-
----
-
-## 📄 License
-
-All rights reserved © Rethink / TWS. Built for interactive audit demonstrations and instant client walkthroughs.
+## 🔐 Master Security Key
+- **Auditor History Unlock**: `Welcome@123` (Triggered by double-clicking the TWS Logo on any page)
