@@ -353,9 +353,7 @@ export function SecretHistoryModal({
               </div>
             ) : (
               currentVisibleItems.map((item) => {
-                const reportUrl = item.payload
-                  ? `/report?type=${item.type}&d=${item.payload}`
-                  : `/report?type=${item.type}`;
+                const reportUrl = `/r/${encodeURIComponent(item.id)}`;
 
                 const badgeBg =
                   item.type === "business"

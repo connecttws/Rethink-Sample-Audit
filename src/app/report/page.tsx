@@ -76,29 +76,101 @@ function ReportViewerWrapper() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const rawType = (searchParams.get("type") || "fitness") as AuditType;
+    const id = searchParams.get("id");
     const payload = searchParams.get("d");
+    const rawType = (searchParams.get("type") || "fitness") as AuditType;
 
-    let resolvedRecord: AuditRecord | null = null;
-    if (payload) {
-      resolvedRecord = decodeRecordFromPayload(payload);
-    }
-    if (!resolvedRecord) {
+    let isMounted = true;
+
+    async function resolveReport() {
+      // 1. If an ID is provided, check instant caches first, then DB
+      if (id) {
+        // Fast local session check
+        const sessionRecord = getSessionRecord();
+        if (
+          sessionRecord &&
+          (sessionRecord.id === id || sessionRecord.id.toLowerCase() === id.toLowerCase())
+        ) {
+          if (isMounted) {
+            setRecord(sessionRecord);
+            setIsLoading(false);
+          }
+          return;
+        }
+
+        // Fast localStorage history check
+        if (typeof window !== "undefined") {
+          try {
+            const raw = localStorage.getItem("tws_audit_history_records_v1");
+            if (raw) {
+              const parsed = JSON.parse(raw);
+              const found = parsed.find((p: any) => p.id === id);
+              if (found?.payload) {
+                const decoded = decodeRecordFromPayload(found.payload);
+                if (decoded) {
+                  if (isMounted) {
+                    setRecord(decoded);
+                    setIsLoading(false);
+                  }
+                  return;
+                }
+              }
+            }
+          } catch {}
+        }
+
+        // Fetch from Database API
+        try {
+          const res = await fetch(`/api/audits/${encodeURIComponent(id)}`);
+          if (res.ok) {
+            const data = await res.json();
+            if (data.success && data.audit) {
+              if (isMounted) {
+                setRecord(data.audit);
+                setIsLoading(false);
+              }
+              return;
+            }
+          }
+        } catch (err) {
+          console.warn("API lookup by ID failed, falling back:", err);
+        }
+      }
+
+      // 2. Fallback to URL payload (?d=...)
+      if (payload) {
+        const fromPayload = decodeRecordFromPayload(payload);
+        if (fromPayload) {
+          if (isMounted) {
+            setRecord(fromPayload);
+            setIsLoading(false);
+          }
+          return;
+        }
+      }
+
+      // 3. Fallback to active session
       const sessionRecord = getSessionRecord();
-      if (sessionRecord && sessionRecord.auditType === rawType) {
-        resolvedRecord = sessionRecord;
+      if (sessionRecord && (!rawType || sessionRecord.auditType === rawType)) {
+        if (isMounted) {
+          setRecord(sessionRecord);
+          setIsLoading(false);
+        }
+        return;
+      }
+
+      // 4. Sample Record Fallback
+      if (isMounted) {
+        setRecord(getSampleRecordForType(rawType));
+        setIsLoading(false);
       }
     }
-    if (!resolvedRecord) {
-      resolvedRecord = getSampleRecordForType(rawType);
-    }
 
-    const timer = setTimeout(() => {
-      setRecord(resolvedRecord);
-      setIsLoading(false);
-    }, 0);
+    resolveReport();
 
-    return () => clearTimeout(timer);
+    return () => {
+      isMounted = false;
+    };
   }, [searchParams]);
 
   if (isLoading || !record) {

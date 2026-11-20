@@ -24,7 +24,6 @@ import {
 } from "@/lib/types";
 import {
   generateWhatsAppReportMessage,
-  encodeRecordToPayload,
   saveSessionRecord,
 } from "@/lib/session-store";
 
@@ -81,12 +80,11 @@ export function AuditCompleteStep({
 
   const theme = AUDIT_THEMES[record.auditType] || AUDIT_THEMES.business;
 
-  // Generate payload URL for sharing without database
-  const payloadStr = encodeRecordToPayload(record);
+  // Clean short report URL (/r/[id])
   const reportUrl =
     typeof window !== "undefined"
-      ? `${window.location.origin}/report?type=${record.auditType}&d=${payloadStr}`
-      : `/report?type=${record.auditType}&d=${payloadStr}`;
+      ? `${window.location.origin}/r/${record.id}`
+      : `/r/${record.id}`;
 
   const isPhoneValid = isValidIndianMobile(clientPhone);
 
@@ -394,7 +392,7 @@ export function AuditCompleteStep({
             </button>
           ) : (
             <Link
-              href={`/report?type=${record.auditType}&d=${payloadStr}`}
+              href={`/report?id=${encodeURIComponent(record.id)}`}
               className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-sm flex items-center justify-center gap-2 shadow-lg transition-all cursor-pointer"
             >
               <span>Open Full Interactive Customer Report</span>
@@ -403,7 +401,7 @@ export function AuditCompleteStep({
           )}
 
           <Link
-            href={`/report?type=${record.auditType}&d=${payloadStr}`}
+            href={`/r/${encodeURIComponent(record.id)}`}
             target="_blank"
             rel="noopener noreferrer"
             className="w-full sm:w-auto px-4 py-3.5 rounded-2xl bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 font-bold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer"

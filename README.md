@@ -51,9 +51,11 @@ A unified interactive clinical & business diagnostic suite combining **TWS Lifes
 - Submissions automatically save to the Supabase PostgreSQL database table `business_audit.tws_sample_audit` via `POST /api/audits`.
 - Full diagnostic payloads, answers, scores, and findings are stored with dedicated B-Tree indexes for fast historical search.
 
-### 5. Instant WhatsApp Dispatch & Clean Reports
+### 5. Instant WhatsApp Dispatch & Clean Short URLs (`/r/[id]`)
+- Replaced lengthy Base64 token payload URLs with clean, short URLs: `/r/[id]` (e.g. `https://domain.com/r/RB-261120-1048`).
+- Database-backed report lookup via `GET /api/audits/[id]` with instant session and local cache fallbacks.
 - Removed hardcoded owner numbers (`8368052044`) from client report views.
-- Clients can share their diagnostic report directly via WhatsApp (`wa.me/?text=...`) to any coach or contact.
+- Clients can share their diagnostic report directly via WhatsApp (`wa.me/?text=...`) with a concise, professional preview link.
 
 ---
 

@@ -6,7 +6,6 @@ import { Printer, Share2, Check, ArrowLeft, MessageSquare } from "lucide-react";
 import { AuditRecord } from "@/lib/types";
 import {
   generateWhatsAppReportMessage,
-  encodeRecordToPayload,
 } from "@/lib/session-store";
 import { TwsLogo } from "@/components/TwsLogo";
 
@@ -48,11 +47,11 @@ export function ReportHeader({ record }: ReportHeaderProps) {
     }
   };
 
-  const payloadStr = encodeRecordToPayload(record);
+  // Clean short report URL (/r/[id])
   const reportUrl =
     typeof window !== "undefined"
-      ? `${window.location.origin}/report?type=${record.auditType}&d=${payloadStr}`
-      : `/report?type=${record.auditType}&d=${payloadStr}`;
+      ? `${window.location.origin}/r/${record.id}`
+      : `/r/${record.id}`;
 
   const handleShareWhatsApp = () => {
     const text = generateWhatsAppReportMessage(record, reportUrl);
