@@ -41,7 +41,7 @@ export const FITNESS_SECTIONS: AuditSection[] = [
         options: [
           { text: "Lower Back Curves / Rounds", points: 0, hint: "Tailbone tucks under (butt-wink). High risk of spine injury under weights.", badge: "High Risk Flag" },
           { text: "Half Squat Only (Tight Hips)", points: 2, hint: "Can't hit parallel depth without heels lifting off or leaning forward heavily.", badge: "Limited Range" },
-          { text: "Straight Spine & Flat Feet", points: 6, hint: "Can sit deep past parallel with an upright chest and planted heels.", badge: "Optimal Mobility" },
+          { text: "Deep Squat with Neutral Spine & Stable Feet", points: 6, hint: "Can sit deep past parallel with an upright chest and planted heels.", badge: "Optimal Mobility" },
         ],
       },
       {
