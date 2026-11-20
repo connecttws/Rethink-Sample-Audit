@@ -42,14 +42,16 @@ export function TwsLogo({
       title="TWS Diagnostic Suite (Double-click for Auditor History)"
       className={`relative inline-flex items-center cursor-pointer select-none transition-transform active:scale-95 group ${className}`}
     >
-      <Image
-        src="/tws-logo.png"
-        alt="TWS - The Winning Strategy"
-        width={140}
-        height={52}
-        priority
-        className={`object-contain transition-opacity duration-200 group-hover:opacity-90 ${imageClassName}`}
-      />
+      <div className="bg-white px-2.5 py-1 rounded-xl shadow-xs border border-slate-200/90 inline-flex items-center">
+        <Image
+          src="/tws-logo.png"
+          alt="TWS - The Winning Strategy"
+          width={140}
+          height={52}
+          priority
+          className={`object-contain transition-opacity duration-200 group-hover:opacity-90 ${imageClassName}`}
+        />
+      </div>
     </div>
   );
 

@@ -1,5 +1,7 @@
 "use client";
 
+export const dynamic = "force-dynamic";
+
 import React, { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { ReportHeader } from "@/components/report/ReportHeader";
@@ -7,7 +9,6 @@ import { ReportCover } from "@/components/report/ReportCover";
 import { ReportBreakdown } from "@/components/report/ReportBreakdown";
 import { ReportActionPlan } from "@/components/report/ReportActionPlan";
 import { ReportFindings } from "@/components/report/ReportFindings";
-import { ReportWhatsAppCta } from "@/components/report/ReportWhatsAppCta";
 import { AuditRecord, AuditType } from "@/lib/types";
 import {
   getSessionRecord,
@@ -30,9 +31,6 @@ function ReportContent({ record }: { record: AuditRecord }) {
 
       {/* 4. Itemized Findings Breakdown */}
       <ReportFindings findings={record.findings} />
-
-      {/* 5. Direct WhatsApp Conversion CTA */}
-      <ReportWhatsAppCta record={record} />
 
       {/* Report Footer */}
       <div className="text-center py-10 text-xs text-slate-400 space-y-1.5 font-mono">

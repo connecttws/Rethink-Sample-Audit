@@ -9,7 +9,6 @@ import { ReportCover } from "@/components/report/ReportCover";
 import { ReportBreakdown } from "@/components/report/ReportBreakdown";
 import { ReportActionPlan } from "@/components/report/ReportActionPlan";
 import { ReportFindings } from "@/components/report/ReportFindings";
-import { ReportWhatsAppCta } from "@/components/report/ReportWhatsAppCta";
 import {
   ProfileDetails,
   AuditRecord,
@@ -212,7 +211,6 @@ export default function BusinessAuditPage() {
             <ReportBreakdown sectionScores={completedRecord.sectionScores} auditType="business" />
             <ReportActionPlan record={completedRecord} />
             <ReportFindings findings={completedRecord.findings} />
-            <ReportWhatsAppCta record={completedRecord} />
           </div>
         )}
       </main>

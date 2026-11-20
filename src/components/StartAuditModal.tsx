@@ -11,6 +11,7 @@ import {
   ShieldCheck,
   Sparkles,
   CheckCircle2,
+  Loader2,
 } from "lucide-react";
 
 interface AuditConfigSummary {
@@ -40,9 +41,14 @@ export function StartAuditModal({
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [phoneError, setPhoneError] = useState("");
+  const [isNavigating, setIsNavigating] = useState(false);
 
-  // Pre-fill from localStorage if previously entered
+  // Prefetch target route and pre-fill from localStorage if previously entered
   React.useEffect(() => {
+    if (isOpen && auditConfig) {
+      router.prefetch(auditConfig.path);
+      setIsNavigating(false);
+    }
     if (isOpen && typeof window !== "undefined") {
       try {
         const stored = localStorage.getItem("tws_active_auditor");
@@ -53,7 +59,7 @@ export function StartAuditModal({
         }
       } catch {}
     }
-  }, [isOpen]);
+  }, [isOpen, auditConfig, router]);
 
   if (!isOpen || !auditConfig) return null;
 
@@ -68,6 +74,8 @@ export function StartAuditModal({
       setPhoneError("Please enter a valid 10-digit Indian WhatsApp mobile number.");
       return;
     }
+
+    setIsNavigating(true);
 
     const prospect = {
       name: name.trim(),
@@ -100,7 +108,6 @@ export function StartAuditModal({
       name.trim()
     )}&phone=${encodeURIComponent(cleanPhone)}`;
 
-    onClose();
     router.push(targetUrl);
   };
 
@@ -116,7 +123,7 @@ export function StartAuditModal({
         {/* Top Header */}
         <div className="flex items-center justify-between border-b border-slate-800 pb-4 relative z-10">
           <div className="flex items-center gap-3">
-            <div className="relative flex items-center h-7 w-auto">
+            <div className="relative flex items-center bg-white px-2 py-0.5 rounded-lg border border-slate-200 shadow-xs">
               <Image
                 src="/tws-logo.png"
                 alt="TWS Logo"
@@ -225,21 +232,33 @@ export function StartAuditModal({
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 py-3 px-4 rounded-2xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-extrabold text-xs uppercase tracking-wider transition-colors cursor-pointer"
+              disabled={isNavigating}
+              className="flex-1 py-3 px-4 rounded-2xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-extrabold text-xs uppercase tracking-wider transition-colors cursor-pointer disabled:opacity-50"
             >
               Cancel
             </button>
             <button
               type="submit"
-              disabled={!isFormValid}
+              disabled={!isFormValid || isNavigating}
               className={`flex-1 py-3.5 px-4 rounded-2xl font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg transition-all cursor-pointer ${
-                isFormValid
+                isNavigating
+                  ? "bg-emerald-700 text-white cursor-wait opacity-90"
+                  : isFormValid
                   ? "bg-emerald-600 hover:bg-emerald-500 text-white shadow-emerald-600/30 transform hover:-translate-y-0.5"
                   : "bg-slate-800 text-slate-500 cursor-not-allowed border border-slate-700"
               }`}
             >
-              <span>Start Audit</span>
-              <ArrowRight className="w-4 h-4" />
+              {isNavigating ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin text-white" />
+                  <span>Opening Diagnostic...</span>
+                </>
+              ) : (
+                <>
+                  <span>Start Audit</span>
+                  <ArrowRight className="w-4 h-4" />
+                </>
+              )}
             </button>
           </div>
         </form>

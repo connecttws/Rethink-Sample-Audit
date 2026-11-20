@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState, useSyncExternalStore } from "react";
+import React, { useState, useEffect, useSyncExternalStore } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   Dumbbell,
   Utensils,
@@ -9,7 +10,6 @@ import {
   Check,
   ArrowRight,
   Sparkles,
-  CheckCircle2,
   Share2,
 } from "lucide-react";
 import { AuditType } from "@/lib/types";
@@ -42,9 +42,6 @@ interface AuditCardConfig {
   buttonBg: string;
   pillarsCount: number;
   questionsCount: number;
-  sampleName: string;
-  sampleMeta: string;
-  bullets: string[];
 }
 
 const AUDIT_CARDS: AuditCardConfig[] = [
@@ -64,14 +61,6 @@ const AUDIT_CARDS: AuditCardConfig[] = [
     buttonBg: "bg-blue-600 hover:bg-blue-500 text-white shadow-blue-600/30",
     pillarsCount: 5,
     questionsCount: 15,
-    sampleName: "Rahul Sharma",
-    sampleMeta: "28 yrs Male · 74 kg · Connaught Place Gym · Fat Loss & Toning",
-    bullets: [
-      "Daily Step Count (NEAT) & Weekly Dedicated Workout Split",
-      "Dietary Protein Target Intake & Liquid Sugar Spikes",
-      "Nightly Sleep Recovery, Cortisol & Chronic Stiffness",
-      "Lifting Form Confidence, Joint Prep & 90-Day Milestones",
-    ],
   },
   {
     type: "fitness",
@@ -89,14 +78,6 @@ const AUDIT_CARDS: AuditCardConfig[] = [
     buttonBg: "bg-emerald-600 hover:bg-emerald-500 text-white shadow-emerald-600/30",
     pillarsCount: 6,
     questionsCount: 18,
-    sampleName: "Aakash Verma",
-    sampleMeta: "32 yrs Male · 86 kg · Burn Belly Fat · 12 Wks",
-    bullets: [
-      "Squat Depth & Lumbar Butt-Wink Movement Screen",
-      "8–10h Desk Slouch & Overhead Shoulder Impingement",
-      "Free-Weight Confidence & Logbook Overload Tracking",
-      "12-Week Guided Onboarding Transformation Protocol",
-    ],
   },
   {
     type: "nutrition",
@@ -114,22 +95,22 @@ const AUDIT_CARDS: AuditCardConfig[] = [
     buttonBg: "bg-amber-600 hover:bg-amber-500 text-white shadow-amber-600/30",
     pillarsCount: 6,
     questionsCount: 18,
-    sampleName: "Priya Sharma",
-    sampleMeta: "34 yrs Female · 76 kg · Drop Visceral Belly Fat",
-    bullets: [
-      "Daily Protein Deficit & 3-Meal Anchor Calibration",
-      "Sweet Chai / Juice Hidden Liquid Calorie Leaks",
-      "Post-Meal Bloating, Antacid Reliance & Gut Dysbiosis",
-      "Post-Dinner Meetha Cravings & Cortisol Snacking",
-    ],
   },
 ];
 
 export default function AuditHubPage() {
+  const router = useRouter();
   const [copiedType, setCopiedType] = useState<string | null>(null);
   const [selectedAuditModal, setSelectedAuditModal] = useState<AuditCardConfig | null>(null);
 
   const origin = useSyncExternalStore(subscribe, getOriginSnapshot, getServerSnapshot);
+
+  // Prefetch all diagnostic routes on mount for instant navigation
+  useEffect(() => {
+    router.prefetch("/business");
+    router.prefetch("/fitness");
+    router.prefetch("/nutrition");
+  }, [router]);
 
   const handleCopyLink = async (path: string, type: string) => {
     const fullUrl = origin ? `${origin}${path}` : path;
@@ -144,8 +125,8 @@ export default function AuditHubPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-950 text-slate-100 font-sans">
-      {/* Top Banner with TWS Logo & Double-Click Secret History Tip */}
-      <div className="bg-black/60 border-b border-slate-800 text-xs py-2 px-4 text-center font-mono text-slate-400">
+      {/* Top Banner */}
+      <div className="bg-slate-900 border-b border-slate-800 text-xs py-2 px-4 text-center font-mono text-slate-400">
         <span className="inline-flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
           <strong className="text-white">TWS Diagnostic Suite</strong> · 3 Specialized Intake Engines ·
@@ -153,21 +134,23 @@ export default function AuditHubPage() {
         </span>
       </div>
 
-      {/* Brand Navigation Bar */}
-      <nav className="max-w-6xl w-full mx-auto px-4 py-4 flex items-center justify-between border-b border-slate-900">
-        <div className="flex items-center gap-3">
-          <TwsLogo imageClassName="h-9 w-auto" auditCategory="all" />
-          <span className="hidden sm:inline-block text-xs font-mono font-bold text-slate-500 border-l border-slate-800 pl-3">
-            Diagnostic & Biomechanical Suite
-          </span>
-        </div>
+      {/* Clean White Brand Navigation Header Bar */}
+      <header className="w-full bg-white border-b border-slate-200 shadow-xs sticky top-0 z-40">
+        <div className="max-w-6xl mx-auto px-4 py-3 sm:py-3.5 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <TwsLogo imageClassName="h-8 sm:h-9 w-auto" auditCategory="all" />
+            <span className="hidden sm:inline-block text-xs font-mono font-bold text-slate-500 border-l border-slate-200 pl-3">
+              Diagnostic & Biomechanical Suite
+            </span>
+          </div>
 
-        <div className="text-right">
-          <span className="text-[11px] font-mono text-slate-500 block">
-            Auditor Access: <span className="text-emerald-400 font-bold">Double-Click Logo</span>
-          </span>
+          <div className="text-right">
+            <span className="text-[11px] font-mono text-slate-600 block">
+              Auditor Access: <span className="text-emerald-600 font-bold">Double-Click Logo</span>
+            </span>
+          </div>
         </div>
-      </nav>
+      </header>
 
       {/* Hero Header */}
       <header className="max-w-4xl mx-auto px-4 pt-8 sm:pt-12 pb-6 sm:pb-10 text-center space-y-4">
@@ -180,7 +163,7 @@ export default function AuditHubPage() {
           Choose Client Intake
         </h1>
 
-        <p className="text-sm sm:text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed">
+        <p className="text-sm sm:lg text-slate-400 max-w-2xl mx-auto leading-relaxed">
           Select an interactive diagnostic below, enter client details, and experience real-time scoring with instant WhatsApp dispatch.
         </p>
       </header>
@@ -232,45 +215,6 @@ export default function AuditHubPage() {
                     <p className="text-xs sm:text-sm text-slate-400 font-medium leading-relaxed">
                       {audit.tagline}
                     </p>
-                  </div>
-
-                  {/* Sample Profile Preview */}
-                  <div className="p-3.5 rounded-2xl bg-black/40 border border-white/10 space-y-1 font-mono text-xs">
-                    <div className="flex items-center justify-between">
-                      <span className="text-[10px] uppercase tracking-wider text-slate-400">
-                        Target Member Persona
-                      </span>
-                      <span className="text-[10px] font-bold text-emerald-400">Interactive</span>
-                    </div>
-                    <div className="font-bold text-white text-sm truncate">
-                      {audit.sampleName}
-                    </div>
-                    <div className="text-[11px] text-slate-400 truncate">
-                      {audit.sampleMeta}
-                    </div>
-                  </div>
-
-                  {/* Key Pillars Checklist */}
-                  <div className="space-y-2.5 pt-2 border-t border-white/10">
-                    <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400 block">
-                        Audit Scope:
-                      </span>
-                      <span className="text-[10px] font-mono font-bold text-slate-300">
-                        {audit.pillarsCount} Pillars · {audit.questionsCount} Points
-                      </span>
-                    </div>
-                    <ul className="space-y-1.5 text-xs text-slate-300 font-medium">
-                      {audit.bullets.map((b, idx) => (
-                        <li key={idx} className="flex items-start gap-2">
-                          <CheckCircle2
-                            className="w-3.5 h-3.5 shrink-0 mt-0.5"
-                            style={{ color: audit.color }}
-                          />
-                          <span className="leading-snug">{b}</span>
-                        </li>
-                      ))}
-                    </ul>
                   </div>
                 </div>
 

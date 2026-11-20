@@ -64,7 +64,7 @@ Every generated diagnostic report provides:
 2. **5 / 6 Pillar Score Breakdown**: Self-contained progress bars comparing current score vs optimal capacity.
 3. **Prescribed Turnaround Protocol**: Structured 12-week intervention recommendations.
 4. **Itemized Findings Breakdown**: Transparent audit of all points evaluated with strategic guidance.
-5. **Direct Consultation CTA**: Clean WhatsApp conversion button connecting to the TWS consultation desk.
+5. **Universal WhatsApp Export & Print**: Shareable WhatsApp report payload and clean one-click PDF printing.
 
 ---
 

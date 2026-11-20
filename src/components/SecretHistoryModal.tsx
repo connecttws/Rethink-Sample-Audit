@@ -223,13 +223,13 @@ export function SecretHistoryModal({
           {/* Modal Header */}
           <div className="px-6 py-4.5 border-b border-slate-800 flex items-center justify-between bg-black/40">
             <div className="flex items-center gap-3">
-              <div className="relative flex items-center h-8 w-auto">
+              <div className="relative flex items-center bg-white px-2 py-0.5 rounded-lg border border-slate-200 shadow-xs">
                 <Image
                   src="/tws-logo.png"
                   alt="TWS"
                   width={100}
                   height={38}
-                  className="h-7 w-auto object-contain"
+                  className="h-6 w-auto object-contain"
                 />
               </div>
               <div className="border-l border-slate-700 pl-3">
