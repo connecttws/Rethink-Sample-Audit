@@ -343,10 +343,12 @@ export function SecretHistoryModal({
               <div className="py-12 text-center space-y-2">
                 <AlertCircle className="w-8 h-8 text-slate-500 mx-auto" />
                 <p className="text-sm font-semibold text-slate-300">
-                  No audit records match your search
+                  {searchQuery ? "No audit records match your search" : "No audit records in this category yet"}
                 </p>
                 <p className="text-xs text-slate-500 font-mono">
-                  Try another keyword or select a different category tab.
+                  {searchQuery
+                    ? "Try another keyword or select a different category tab."
+                    : "Submit a client diagnostic intake to view real-time records here."}
                 </p>
               </div>
             ) : (
