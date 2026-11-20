@@ -3,6 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { AuditType } from "@/lib/types";
+import { TwsLogo } from "./TwsLogo";
 
 interface AuditorNavProps {
   auditType: AuditType;
@@ -29,9 +30,9 @@ const BRAND_CONFIGS: Record<
   }
 > = {
   business: {
-    mark: "RB",
+    mark: "TB",
     gradient: "from-blue-600 to-indigo-700",
-    title: "Rethink Business",
+    title: "TWS Business",
     subtitle: "BMI & Lifestyle Health Audit",
     scoreLabel: "Health Score",
     navBg: "bg-[#0B132B]/95",
@@ -40,9 +41,9 @@ const BRAND_CONFIGS: Record<
     accentDot: "bg-blue-400",
   },
   fitness: {
-    mark: "RF",
+    mark: "TF",
     gradient: "from-emerald-500 to-teal-700",
-    title: "Rethink Fitness",
+    title: "TWS Fitness",
     subtitle: "1-on-1 Fitness Diagnostic",
     scoreLabel: "Fitness Score",
     navBg: "bg-[#090D16]/95",
@@ -51,9 +52,9 @@ const BRAND_CONFIGS: Record<
     accentDot: "bg-emerald-400",
   },
   nutrition: {
-    mark: "RN",
+    mark: "TN",
     gradient: "from-amber-500 to-orange-700",
-    title: "Rethink Nutrition",
+    title: "TWS Nutrition",
     subtitle: "Clinical Diet Intake",
     scoreLabel: "Metabolic Score",
     navBg: "bg-[#1C130E]/95",
@@ -78,17 +79,17 @@ export function AuditorNav({
       className={`sticky top-11 sm:top-11 z-40 ${brand.navBg} text-white border-b ${brand.navBorder} shadow-lg backdrop-blur-md no-print`}
     >
       <div className="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between gap-3">
-        {/* Left: Brand Monogram & Title */}
+        {/* Left: TWS Logo (with double-click secret history) & Title */}
         <div className="flex items-center gap-3 min-w-0">
-          <Link
-            href="/"
-            className={`w-9 h-9 rounded-xl bg-gradient-to-br ${brand.gradient} text-white font-black text-xs tracking-wider shrink-0 shadow-md flex items-center justify-center font-mono`}
-            title={brand.title}
-          >
-            {brand.mark}
+          <Link href="/" className="shrink-0" title="Back to Intake Engine Hub">
+            <TwsLogo
+              auditCategory={auditType}
+              imageClassName="h-7 sm:h-8 w-auto"
+              showLink={false}
+            />
           </Link>
 
-          <div className="min-w-0">
+          <div className="min-w-0 border-l border-white/10 pl-3">
             <div className="flex items-center gap-1.5 truncate">
               <span className="font-black text-xs sm:text-sm tracking-tight text-white block truncate">
                 {brand.title}

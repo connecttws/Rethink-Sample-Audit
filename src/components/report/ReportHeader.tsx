@@ -8,6 +8,7 @@ import {
   generateWhatsAppReportMessage,
   encodeRecordToPayload,
 } from "@/lib/session-store";
+import { TwsLogo } from "@/components/TwsLogo";
 
 interface ReportHeaderProps {
   record: AuditRecord;
@@ -15,23 +16,23 @@ interface ReportHeaderProps {
 
 const BRAND_CONFIGS = {
   business: {
-    mark: "RB",
+    mark: "TB",
     gradient: "from-blue-600 to-indigo-700",
-    name: "Rethink Business",
-    subtitle: "Local Business Growth Audit",
+    name: "TWS Business",
+    subtitle: "BMI & Lifestyle Health Audit",
     path: "/business",
   },
   fitness: {
-    mark: "RF",
+    mark: "TF",
     gradient: "from-emerald-500 to-teal-700",
-    name: "Rethink Fitness",
-    subtitle: "Comprehensive 1-on-1 Fitness Diagnostic",
+    name: "TWS Fitness",
+    subtitle: "1-on-1 Fitness Diagnostic",
     path: "/fitness",
   },
   nutrition: {
-    mark: "RN",
+    mark: "TN",
     gradient: "from-amber-500 to-orange-700",
-    name: "Rethink Nutrition",
+    name: "TWS Nutrition",
     subtitle: "Clinical Diet & Metabolic Diagnostic",
     path: "/nutrition",
   },
@@ -86,12 +87,12 @@ export function ReportHeader({ record }: ReportHeaderProps) {
           </Link>
 
           <div className="flex items-center gap-2.5 min-w-0">
-            <div
-              className={`w-9 h-9 rounded-xl bg-gradient-to-br ${brand.gradient} text-white font-black text-xs tracking-wider shadow-sm shrink-0 flex items-center justify-center font-mono`}
-            >
-              {brand.mark}
-            </div>
-            <div className="min-w-0 truncate">
+            <TwsLogo
+              auditCategory={record.auditType}
+              imageClassName="h-7 w-auto"
+              showLink={false}
+            />
+            <div className="min-w-0 truncate border-l border-slate-200 pl-2.5">
               <div className="flex items-center gap-1.5 truncate">
                 <span className="font-black text-xs sm:text-sm tracking-tight text-slate-900 truncate">
                   {brand.name}

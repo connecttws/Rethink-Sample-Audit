@@ -1,4 +1,4 @@
-# Rethink Interactive Sample Diagnostic Suite
+# TWS Interactive Sample Diagnostic Suite
 
 A unified interactive demonstrator combining **Local Business Audit**, **1-on-1 Fitness Diagnostic**, and **Clinical Nutrition Audit** for seamless client walkthroughs, live demonstrations, and instant WhatsApp report dispatch.
 

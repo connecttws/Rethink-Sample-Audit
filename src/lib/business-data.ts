@@ -280,7 +280,7 @@ export function getScoreBand(score: number): ScoreBand {
       headline: "Solid Foundation With Major Conversion Gaps",
       description:
         "You have genuine motivation, but gaps in protein timing, sleep depth, and progressive programming are stalling body recomposition.",
-      sprintRecommendation: "Rethink Strength & Body Recomp Accelerator",
+      sprintRecommendation: "TWS Strength & Body Recomp Accelerator",
       sprintDetails:
         "Hypertrophy-focused training split, structured protein targets, and bi-weekly body composition scans.",
     };
@@ -294,7 +294,7 @@ export function getScoreBand(score: number): ScoreBand {
       headline: "High Performing Presence Ready For Scaling",
       description:
         "You maintain admirable discipline. Fine-tuning intra-workout nutrition, recovery modalities, and advanced periodization will break plateaus.",
-      sprintRecommendation: "Rethink Performance & Hypertrophy Sprint",
+      sprintRecommendation: "TWS Performance & Hypertrophy Sprint",
       sprintDetails:
         "Advanced periodized split, deload protocols, targeted micronutrient stacking, and 1RM benchmark progression.",
     };
@@ -307,7 +307,7 @@ export function getScoreBand(score: number): ScoreBand {
     headline: "Elite Fitness Lifestyle & Metabolic Mastery",
     description:
       "Outstanding consistency across all 5 health pillars. Maintain movement variability, prevent overuse strain, and sustain lifelong peak vitality.",
-    sprintRecommendation: "Rethink VIP Athletic Retainer",
+    sprintRecommendation: "TWS VIP Athletic Retainer",
     sprintDetails:
       "Long-term athletic maintenance, advanced biometric tracking, and sports performance optimization.",
   };
@@ -418,7 +418,7 @@ export function calculateBusinessAudit(
   };
 }
 
-// Exact Sample Record from Rethink-business-audit
+// Exact Sample Record for TWS Business Audit
 export const SAMPLE_BUSINESS_RECORD: AuditRecord = {
   id: "RB-261019-1048",
   auditType: "business",
@@ -430,7 +430,7 @@ export const SAMPLE_BUSINESS_RECORD: AuditRecord = {
     locality: "Connaught Place Gym",
     phone: "+91 98765 43210",
     whatsappNumber: "9876543210",
-    auditorName: "Rethink Coach",
+    auditorName: "TWS Coach",
     age: "28",
     biologicalSex: "Male",
     heightCm: "175",

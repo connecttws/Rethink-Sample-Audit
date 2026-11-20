@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { SampleTopBar } from "@/components/SampleTopBar";
 import { AuditorNav } from "@/components/AuditorNav";
 import { BusinessQuestionnaire } from "@/components/questionnaires/BusinessQuestionnaire";
@@ -20,6 +20,7 @@ import {
   SAMPLE_BUSINESS_RECORD,
 } from "@/lib/business-data";
 import { saveSessionRecord, clearSessionRecord } from "@/lib/session-store";
+import { saveAuditToHistory } from "@/lib/history-storage";
 
 export default function BusinessAuditPage() {
   const [business, setBusiness] = useState<ProfileDetails>({
@@ -30,7 +31,7 @@ export default function BusinessAuditPage() {
     phone: "",
     whatsappNumber: "",
     mapsUrl: "",
-    auditorName: "Rethink Coach",
+    auditorName: "TWS Coach",
     age: "28",
     heightUnit: "cm",
     heightCm: "175",
@@ -43,6 +44,43 @@ export default function BusinessAuditPage() {
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [completedRecord, setCompletedRecord] = useState<AuditRecord | null>(null);
   const [viewMode, setViewMode] = useState<"questionnaire" | "dispatch" | "full_report">("questionnaire");
+
+  // Read URL query params or sessionStorage set from the Start Audit popup
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const urlName = params.get("name");
+      const urlPhone = params.get("phone");
+
+      if (urlName || urlPhone) {
+        setBusiness((prev) => ({
+          ...prev,
+          name: urlName || prev.name,
+          clientName: urlName || prev.clientName,
+          phone: urlPhone || prev.phone,
+          whatsappNumber: urlPhone || prev.whatsappNumber,
+        }));
+      } else {
+        try {
+          const raw = sessionStorage.getItem("tws_active_prospect");
+          if (raw) {
+            const parsed = JSON.parse(raw);
+            if (parsed.name || parsed.phone) {
+              setBusiness((prev) => ({
+                ...prev,
+                name: parsed.name || prev.name,
+                clientName: parsed.name || prev.clientName,
+                phone: parsed.phone || prev.phone,
+                whatsappNumber: parsed.phone || prev.whatsappNumber,
+              }));
+            }
+          }
+        } catch {
+          // Ignore parse errors
+        }
+      }
+    }
+  }, []);
 
   // Compute live score
   const liveScore = useMemo(() => {
@@ -77,6 +115,7 @@ export default function BusinessAuditPage() {
     const record = calculateBusinessAudit(business, answers);
     setCompletedRecord(record);
     saveSessionRecord(record);
+    saveAuditToHistory(record);
     setViewMode("dispatch");
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -90,7 +129,7 @@ export default function BusinessAuditPage() {
       phone: "",
       whatsappNumber: "",
       mapsUrl: "",
-      auditorName: "Rethink Coach",
+      auditorName: "TWS Coach",
       age: "28",
       heightUnit: "cm",
       heightCm: "175",

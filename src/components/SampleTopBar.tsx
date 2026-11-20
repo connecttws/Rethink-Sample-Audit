@@ -36,9 +36,9 @@ const AUDIT_BAR_CONFIG: Record<
   }
 > = {
   business: {
-    name: "Business Audit",
+    name: "TWS Business Audit",
     path: "/business",
-    badge: "BMI & Lifestyle Health Audit",
+    badge: "TWS Lifestyle Health Audit",
     bgClass: "bg-[#0B132B]",
     borderClass: "border-[#1C2541]",
     btnClass: "bg-blue-600 hover:bg-blue-500 text-white shadow-blue-600/30",
@@ -47,9 +47,9 @@ const AUDIT_BAR_CONFIG: Record<
     activeTabClass: "bg-blue-600 text-white font-bold",
   },
   fitness: {
-    name: "Fitness Audit",
+    name: "TWS Fitness Audit",
     path: "/fitness",
-    badge: "1-on-1 Fitness Diagnostic",
+    badge: "TWS 1-on-1 Fitness Diagnostic",
     bgClass: "bg-[#090D16]",
     borderClass: "border-[#1E293B]",
     btnClass: "bg-emerald-600 hover:bg-emerald-500 text-white shadow-emerald-600/30",
@@ -58,9 +58,9 @@ const AUDIT_BAR_CONFIG: Record<
     activeTabClass: "bg-emerald-600 text-white font-bold",
   },
   nutrition: {
-    name: "Nutrition Audit",
+    name: "TWS Nutrition Audit",
     path: "/nutrition",
-    badge: "Clinical Diet Intake",
+    badge: "TWS Clinical Diet Intake",
     bgClass: "bg-[#1C130E]",
     borderClass: "border-[#362419]",
     btnClass: "bg-amber-600 hover:bg-amber-500 text-white shadow-amber-600/30",

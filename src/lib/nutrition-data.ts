@@ -330,7 +330,7 @@ export const NUTRITION_SCORE_BANDS: ScoreBand[] = [
     headline: "Good Intentions With Major Hidden Calorie & Protein Gaps",
     description:
       "You maintain good health consciousness, but uneven protein distribution, evening tea snacking creep, and weekend calorie blowouts are neutralizing your weekly deficit.",
-    sprintRecommendation: "Rethink 8-Week Visceral Belly & Fat Loss Accelerator",
+    sprintRecommendation: "TWS 8-Week Visceral Belly & Fat Loss Accelerator",
     sprintDetails:
       "Glycemic stabilization roadmap, high-satiety protein anchoring across all 3 meals, weekend social dining protocol, and daily WhatsApp accountability.",
   },
@@ -342,7 +342,7 @@ export const NUTRITION_SCORE_BANDS: ScoreBand[] = [
     headline: "Strong Baseline Ready for Precision Micronutrient Scaling",
     description:
       "Consistently clean nutritional choices with strong satiety control. Fine-tuning gut microbiome diversity, circadian fasting timing, and hormonal balancing will unlock stubborn belly fat.",
-    sprintRecommendation: "Rethink Precision Metabolic & Hormone Coaching",
+    sprintRecommendation: "TWS Precision Metabolic & Hormone Coaching",
     sprintDetails:
       "Nutrient timing optimization, gut prebiotic diversity protocol, continuous glucose stability, and body recomposition.",
   },
@@ -354,7 +354,7 @@ export const NUTRITION_SCORE_BANDS: ScoreBand[] = [
     headline: "Elite Nutritional Discipline & High Leptin Sensitivity",
     description:
       "Outstanding consistency across all 6 nutritional pillars. Quiet effortless satiety, flat bloat-free digestion, zero sugar reliance, and resilient metabolic flexibility.",
-    sprintRecommendation: "Rethink VIP Nutritional Retainer",
+    sprintRecommendation: "TWS VIP Nutritional Retainer",
     sprintDetails:
       "Quarterly biomarker screening, seasonal nutrition adjustments, longevity protocols, and intuitive lifestyle sustainability.",
   },
@@ -466,7 +466,7 @@ export const SAMPLE_NUTRITION_RECORD: AuditRecord = {
     weightGapKg: "-16.0 kg",
     proteinNeedMin: "91",
     proteinNeedMax: "114",
-    auditorName: "Rethink Clinical Nutritionist",
+    auditorName: "TWS Clinical Nutritionist",
     goal: "Drop Visceral Belly Fat & Lose 8-12 kg",
   },
   answers: {

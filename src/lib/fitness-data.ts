@@ -462,7 +462,7 @@ export const SAMPLE_FITNESS_RECORD: AuditRecord = {
     optimalMinKg: "57",
     optimalMaxKg: "76",
     weightGapKg: "-13.0 kg",
-    auditorName: "Rethink Coach",
+    auditorName: "TWS Coach",
     goal: "Burn Belly Fat & Lose Extra Weight",
   },
   answers: {

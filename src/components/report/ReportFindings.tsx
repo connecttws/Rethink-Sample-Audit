@@ -152,7 +152,7 @@ export function ReportFindings({ findings }: ReportFindingsProps) {
                           : "bg-amber-50/80 text-amber-900 border border-amber-200/60"
                       }`}
                     >
-                      <strong className="font-bold mr-1">Rethink Strategic Guidance:</strong>
+                      <strong className="font-bold mr-1">TWS Strategic Guidance:</strong>
                       {item.hint}
                     </div>
                   )}

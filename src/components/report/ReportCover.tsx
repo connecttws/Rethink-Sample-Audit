@@ -82,10 +82,10 @@ export function ReportCover({ record }: ReportCoverProps) {
             <ShieldCheck className="w-4 h-4 text-emerald-400" />
             <span>
               {record.auditType === "business"
-                ? "Rethink Business · Local Growth Audit"
+                ? "TWS Business · Lifestyle Health Audit"
                 : record.auditType === "fitness"
-                ? "Rethink Fitness · 1-on-1 Diagnostic"
-                : "Rethink Nutrition · Clinical Diet Intake"}
+                ? "TWS Fitness · 1-on-1 Diagnostic"
+                : "TWS Nutrition · Clinical Diet Intake"}
             </span>
           </div>
 
@@ -183,7 +183,7 @@ export function ReportCover({ record }: ReportCoverProps) {
               <span>
                 Assessment Conducted by:{" "}
                 <strong className="text-slate-200 font-semibold">
-                  {record.business.auditorName || "Rethink Diagnostic Team"}
+                  {record.business.auditorName || "TWS Diagnostic Team"}
                 </strong>
               </span>
             </div>

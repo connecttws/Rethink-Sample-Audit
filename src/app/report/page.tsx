@@ -37,19 +37,16 @@ function ReportContent({ record }: { record: AuditRecord }) {
       {/* Report Footer */}
       <div className="text-center py-10 text-xs text-slate-400 space-y-1.5 font-mono">
         <div className="flex items-center justify-center gap-2 mb-1">
-          <div className="w-6 h-6 rounded-md bg-slate-900 text-emerald-400 font-black text-[10px] flex items-center justify-center font-mono border border-emerald-500/30">
-            {record.auditType === "business" ? "RB" : record.auditType === "fitness" ? "RF" : "RN"}
-          </div>
           <p className="font-extrabold text-slate-700 uppercase tracking-wider text-[11px]">
             {record.auditType === "business"
-              ? "Rethink Business · Local Growth & Digital Audit"
+              ? "TWS Business · Lifestyle & Health Audit"
               : record.auditType === "fitness"
-              ? "Rethink Fitness · Comprehensive 1-on-1 Fitness Diagnostic"
-              : "Rethink Nutrition · Clinical Diet & Metabolic Diagnostic"}
+              ? "TWS Fitness · Comprehensive 1-on-1 Fitness Diagnostic"
+              : "TWS Nutrition · Clinical Diet & Metabolic Diagnostic"}
           </p>
         </div>
         <p className="text-[11px] text-slate-400">
-          Client Diagnostic Report · Ref {record.id}
+          TWS Client Diagnostic Report · Ref {record.id}
         </p>
       </div>
     </div>

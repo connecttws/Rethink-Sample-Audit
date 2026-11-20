@@ -30,7 +30,7 @@ interface ReportBreakdownProps {
 }
 
 const PILLAR_COLOR_MAP: Record<string, { color: string; icon: React.ElementType }> = {
-  // Business (Rethink-business-audit: Activity, Nutrition, Recovery, Form, Mindset)
+  // Business (TWS Business: Activity, Nutrition, Recovery, Form, Mindset)
   activity: { color: "#0284C7", icon: Footprints },
   nutrition: { color: "#10B981", icon: Utensils },
   recovery: { color: "#8B5CF6", icon: Moon },

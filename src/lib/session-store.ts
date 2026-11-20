@@ -3,7 +3,7 @@ import { SAMPLE_BUSINESS_RECORD } from "./business-data";
 import { SAMPLE_FITNESS_RECORD } from "./fitness-data";
 import { SAMPLE_NUTRITION_RECORD } from "./nutrition-data";
 
-const SESSION_STORAGE_KEY = "rethink_sample_audit_current";
+const SESSION_STORAGE_KEY = "tws_sample_audit_current";
 
 export function saveSessionRecord(record: AuditRecord): void {
   if (typeof window === "undefined") return;
@@ -86,7 +86,7 @@ export function generateWhatsAppReportMessage(record: AuditRecord, reportUrl: st
     const facilityStr = record.business.locality ? `*Facility:* ${record.business.locality}\n` : "";
 
     return (
-      `*RETHINK • BMI & Lifestyle Health Audit*\n` +
+      `*TWS • BMI & Lifestyle Health Audit*\n` +
       `*Member:* ${record.business.name}${ageStr}\n` +
       `*Primary Fitness Goal:* ${record.business.category}\n` +
       facilityStr +
@@ -100,7 +100,7 @@ export function generateWhatsAppReportMessage(record: AuditRecord, reportUrl: st
         .join("\n") +
       `\n\n*Recommended Turnaround Protocol:*\n${record.band.sprintRecommendation}\n${record.band.sprintDetails}\n\n` +
       `*View Full Diagnostic Report Online:*\n${reportUrl}\n\n` +
-      `_Prepared by Rethink Lifestyle & Fitness Coaching Team._`
+      `_Prepared by TWS Lifestyle & Fitness Coaching Team._`
     );
   }
 
@@ -115,7 +115,7 @@ export function generateWhatsAppReportMessage(record: AuditRecord, reportUrl: st
     const gapStr = record.business.weightGapKg ? `*Weight Gap:* ${record.business.weightGapKg}\n` : "";
 
     return (
-      `*RETHINK NUTRITION • Clinical Diet Intake Summary*\n` +
+      `*TWS NUTRITION • Clinical Diet Intake Summary*\n` +
       `*Nutritional Deficit, Gut Health & Metabolic Rate Diagnostic*\n\n` +
       `*Client:* ${record.business.name}${ageSexStr}\n` +
       `*Target:* ${record.business.category}\n` +
@@ -130,7 +130,7 @@ export function generateWhatsAppReportMessage(record: AuditRecord, reportUrl: st
         .join("\n") +
       `\n\n*Recommended Clinical Protocol:*\n${record.band.sprintRecommendation}\n${record.band.sprintDetails}\n\n` +
       `*View Full Clinical Report Online:*\n${reportUrl}\n\n` +
-      `_Prepared by Rethink Clinical Nutrition & Metabolic Team._`
+      `_Prepared by TWS Clinical Nutrition & Metabolic Team._`
     );
   }
 
@@ -145,7 +145,7 @@ export function generateWhatsAppReportMessage(record: AuditRecord, reportUrl: st
   const gapStr = record.business.weightGapKg ? `*Weight Gap:* ${record.business.weightGapKg}\n` : "";
 
   return (
-    `*RETHINK FITNESS • Diagnostic Intake Summary*\n` +
+    `*TWS FITNESS • Diagnostic Intake Summary*\n` +
     `*Comprehensive Pre-Pitch 1-on-1 Fitness Diagnostic*\n\n` +
     `*Prospect:* ${record.business.name}${ageSexStr}\n` +
     `*Primary Fitness Goal:* ${record.business.category}\n` +
@@ -160,6 +160,6 @@ export function generateWhatsAppReportMessage(record: AuditRecord, reportUrl: st
       .join("\n") +
     `\n\n*Recommended Coaching Protocol:*\n${record.band.sprintRecommendation}\n${record.band.sprintDetails}\n\n` +
     `*View Full Diagnostic Report Online:*\n${reportUrl}\n\n` +
-    `_Prepared by Rethink Fitness Coaching & Biomechanics Team._`
+    `_Prepared by TWS Fitness Coaching & Biomechanics Team._`
   );
 }

@@ -13,6 +13,8 @@ import {
   Share2,
 } from "lucide-react";
 import { AuditType } from "@/lib/types";
+import { TwsLogo } from "@/components/TwsLogo";
+import { StartAuditModal } from "@/components/StartAuditModal";
 
 function subscribe() {
   return () => {};
@@ -49,7 +51,7 @@ const AUDIT_CARDS: AuditCardConfig[] = [
   {
     type: "business",
     path: "/business",
-    badge: "BMI & Lifestyle Health Audit",
+    badge: "TWS Lifestyle Health Audit",
     badgeBg: "bg-blue-500/20 text-blue-300 border-blue-400/30",
     title: "BMI & Lifestyle Health Audit",
     tagline: "15-Point Daily Activity, Nutrition, Sleep, Form & Mindset Assessment",
@@ -74,7 +76,7 @@ const AUDIT_CARDS: AuditCardConfig[] = [
   {
     type: "fitness",
     path: "/fitness",
-    badge: "1-on-1 Fitness Diagnostic",
+    badge: "TWS Fitness Diagnostic",
     badgeBg: "bg-emerald-500/20 text-emerald-300 border-emerald-400/30",
     title: "Fitness & Biomechanics Diagnostic",
     tagline: "18-Point Posture, Joint Safety, Gym Habits & Energy Screen",
@@ -99,9 +101,9 @@ const AUDIT_CARDS: AuditCardConfig[] = [
   {
     type: "nutrition",
     path: "/nutrition",
-    badge: "Clinical Diet Intake",
+    badge: "TWS Clinical Nutrition",
     badgeBg: "bg-amber-500/20 text-amber-300 border-amber-400/30",
-    title: "Clinical Nutrition & Metabolic Rate Diagnostic",
+    title: "Clinical Nutrition & Metabolic Diagnostic",
     tagline: "18-Point Protein Density, Gut Dysbiosis & Sugar Leak Audit",
     icon: Utensils,
     color: "#D97706",
@@ -125,6 +127,8 @@ const AUDIT_CARDS: AuditCardConfig[] = [
 
 export default function AuditHubPage() {
   const [copiedType, setCopiedType] = useState<string | null>(null);
+  const [selectedAuditModal, setSelectedAuditModal] = useState<AuditCardConfig | null>(null);
+
   const origin = useSyncExternalStore(subscribe, getOriginSnapshot, getServerSnapshot);
 
   const handleCopyLink = async (path: string, type: string) => {
@@ -140,17 +144,33 @@ export default function AuditHubPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-950 text-slate-100 font-sans">
-      {/* Top Banner */}
+      {/* Top Banner with TWS Logo & Double-Click Secret History Tip */}
       <div className="bg-black/60 border-b border-slate-800 text-xs py-2 px-4 text-center font-mono text-slate-400">
         <span className="inline-flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          <strong className="text-white">Rethink Diagnostic Suite</strong> · 3 Specialized Intake Engines ·
-          Ready for Direct Client Demonstration & WhatsApp Dispatch
+          <strong className="text-white">TWS Diagnostic Suite</strong> · 3 Specialized Intake Engines ·
+          Direct Client Demonstration & Instant WhatsApp Dispatch
         </span>
       </div>
 
+      {/* Brand Navigation Bar */}
+      <nav className="max-w-6xl w-full mx-auto px-4 py-4 flex items-center justify-between border-b border-slate-900">
+        <div className="flex items-center gap-3">
+          <TwsLogo imageClassName="h-9 w-auto" auditCategory="all" />
+          <span className="hidden sm:inline-block text-xs font-mono font-bold text-slate-500 border-l border-slate-800 pl-3">
+            Diagnostic & Biomechanical Suite
+          </span>
+        </div>
+
+        <div className="text-right">
+          <span className="text-[11px] font-mono text-slate-500 block">
+            Auditor Access: <span className="text-emerald-400 font-bold">Double-Click Logo</span>
+          </span>
+        </div>
+      </nav>
+
       {/* Hero Header */}
-      <header className="max-w-4xl mx-auto px-4 pt-10 sm:pt-16 pb-8 sm:pb-12 text-center space-y-4">
+      <header className="max-w-4xl mx-auto px-4 pt-8 sm:pt-12 pb-6 sm:pb-10 text-center space-y-4">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900 border border-slate-800 text-slate-300 text-xs font-mono font-bold uppercase tracking-wider">
           <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
           <span>Select Diagnostic Engine</span>
@@ -161,7 +181,7 @@ export default function AuditHubPage() {
         </h1>
 
         <p className="text-sm sm:text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed">
-          Select an interactive diagnostic below to explore the questions, test pre-filled sample client profiles, and experience instant WhatsApp report generation.
+          Select an interactive diagnostic below, enter client details, and experience real-time scoring with instant WhatsApp dispatch.
         </p>
       </header>
 
@@ -186,7 +206,9 @@ export default function AuditHubPage() {
                 <div className="space-y-5 relative z-10">
                   {/* Top Badges */}
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                    <span className={`text-[10px] font-mono font-bold uppercase tracking-wider px-2.5 py-1 rounded-md border ${audit.badgeBg} w-fit`}>
+                    <span
+                      className={`text-[10px] font-mono font-bold uppercase tracking-wider px-2.5 py-1 rounded-md border ${audit.badgeBg} w-fit`}
+                    >
                       {audit.badge}
                     </span>
 
@@ -212,11 +234,13 @@ export default function AuditHubPage() {
                     </p>
                   </div>
 
-                  {/* Sample Client Card */}
+                  {/* Sample Profile Preview */}
                   <div className="p-3.5 rounded-2xl bg-black/40 border border-white/10 space-y-1 font-mono text-xs">
                     <div className="flex items-center justify-between">
-                      <span className="text-[10px] uppercase tracking-wider text-slate-400">Sample Profile</span>
-                      <span className="text-[10px] font-bold text-emerald-400">1-Click Auto-Fill</span>
+                      <span className="text-[10px] uppercase tracking-wider text-slate-400">
+                        Target Member Persona
+                      </span>
+                      <span className="text-[10px] font-bold text-emerald-400">Interactive</span>
                     </div>
                     <div className="font-bold text-white text-sm truncate">
                       {audit.sampleName}
@@ -250,15 +274,16 @@ export default function AuditHubPage() {
                   </div>
                 </div>
 
-                {/* Bottom Actions: Direct Launch & Shareable Link */}
+                {/* Bottom Actions: Start Audit Popup Trigger & Shareable Link */}
                 <div className="space-y-2.5 pt-4 border-t border-white/10 relative z-10">
-                  <Link
-                    href={audit.path}
+                  <button
+                    type="button"
+                    onClick={() => setSelectedAuditModal(audit)}
                     className={`w-full py-3.5 px-5 rounded-2xl font-extrabold text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg transition-all cursor-pointer transform hover:-translate-y-0.5 ${audit.buttonBg}`}
                   >
-                    <span>Launch Diagnostic</span>
+                    <span>Start Audit</span>
                     <ArrowRight className="w-4 h-4" />
-                  </Link>
+                  </button>
 
                   <button
                     type="button"
@@ -285,9 +310,16 @@ export default function AuditHubPage() {
         </div>
       </main>
 
+      {/* Intake Popup Modal */}
+      <StartAuditModal
+        isOpen={!!selectedAuditModal}
+        onClose={() => setSelectedAuditModal(null)}
+        auditConfig={selectedAuditModal}
+      />
+
       {/* Footer */}
       <footer className="text-center py-8 text-xs text-slate-500 font-mono border-t border-slate-900">
-        <p>Rethink Client Diagnostic Engine · In-Memory Sample Storage · 100% Vercel Ready</p>
+        <p>TWS Client Diagnostic Engine · In-Memory Sample Storage · 100% Vercel Ready</p>
       </footer>
     </div>
   );
