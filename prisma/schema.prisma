@@ -1,0 +1,59 @@
+// Prisma schema for TWS Sample Audit Engine
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+  schemas   = ["business_audit", "public", "auth"]
+}
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["multiSchema"]
+}
+
+model TwsSampleAudit {
+  id                    String    @id @default(cuid())
+  slug                  String?   @unique @db.VarChar(150)
+  
+  // Audit Type & Identity
+  auditType             String    @map("audit_type") @db.VarChar(50) // business | fitness | nutrition | physio
+  clientName            String    @map("client_name") @db.VarChar(255)
+  phone                 String?   @db.VarChar(50)
+  whatsappNumber        String?   @map("whatsapp_number") @db.VarChar(50)
+  
+  // Auditor attribution
+  auditorName           String?   @map("auditor_name") @db.VarChar(150)
+  auditorPhone          String?   @map("auditor_phone") @db.VarChar(50)
+
+  // Demographics & Biometrics
+  category              String?   @db.VarChar(150)
+  locality              String?   @db.VarChar(255)
+  age                   String?   @db.VarChar(20)
+  biologicalSex         String?   @map("biological_sex") @db.VarChar(20)
+
+  // Diagnostic Results
+  totalScore            Int       @map("total_score")
+  maxScore              Int       @default(100) @map("max_score")
+  percentage            Int       @default(0)
+  bandTitle             String    @map("band_title") @db.VarChar(150)
+  bandHeadline          String?   @map("band_headline") @db.Text
+  sprintRecommendation  String?   @map("sprint_recommendation") @db.VarChar(255)
+
+  // Full Structured Payloads
+  sectionScores         Json      @map("section_scores")
+  answers               Json
+  findings              Json
+  profileDetails        Json      @map("profile_details")
+  payload               String?   @db.Text
+
+  // Engagement tracking
+  viewCount             Int       @default(0) @map("view_count")
+
+  // Timestamps
+  createdAt             DateTime  @default(now()) @map("created_at")
+  updatedAt             DateTime  @updatedAt @map("updated_at")
+
+  @@schema("business_audit")
+  @@map("tws_sample_audit")
+}

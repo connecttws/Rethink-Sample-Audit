@@ -41,6 +41,20 @@ export function StartAuditModal({
   const [phone, setPhone] = useState("");
   const [phoneError, setPhoneError] = useState("");
 
+  // Pre-fill from localStorage if previously entered
+  React.useEffect(() => {
+    if (isOpen && typeof window !== "undefined") {
+      try {
+        const stored = localStorage.getItem("tws_active_auditor");
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (parsed.name && !name) setName(parsed.name);
+          if (parsed.phone && !phone) setPhone(parsed.phone);
+        }
+      } catch {}
+    }
+  }, [isOpen]);
+
   if (!isOpen || !auditConfig) return null;
 
   const isPhoneValid = /^[6-9]\d{9}$/.test(phone.trim().replace(/\D/g, ""));
@@ -62,12 +76,22 @@ export function StartAuditModal({
       startedAt: new Date().toISOString(),
     };
 
-    // Store in sessionStorage so audit pages can initialize state immediately
+    // Store in localStorage for auditor identity and persistence
     if (typeof window !== "undefined") {
       try {
+        localStorage.setItem(
+          "tws_active_auditor",
+          JSON.stringify({
+            name: name.trim(),
+            phone: cleanPhone,
+            savedAt: new Date().toISOString(),
+          })
+        );
+        localStorage.setItem("tws_auditor_name", name.trim());
+        localStorage.setItem("tws_auditor_phone", cleanPhone);
         sessionStorage.setItem("tws_active_prospect", JSON.stringify(prospect));
       } catch (err) {
-        console.warn("Error storing prospect in sessionStorage:", err);
+        console.warn("Error storing auditor in localStorage:", err);
       }
     }
 

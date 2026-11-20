@@ -7,6 +7,8 @@ export interface HistoryRecord {
   typeBadge: string;
   clientName: string;
   phone: string;
+  auditorName?: string;
+  auditorPhone?: string;
   score: number;
   maxScore: number;
   bandTitle: string;
@@ -26,6 +28,7 @@ export const SEED_HISTORY_RECORDS: HistoryRecord[] = [
     typeBadge: "TWS Business & Lifestyle",
     clientName: "Rahul Sharma",
     phone: "9810234567",
+    auditorName: "TWS Lead Coach",
     score: 74,
     maxScore: 100,
     bandTitle: "Strong Foundation (Tier 2)",
@@ -39,6 +42,7 @@ export const SEED_HISTORY_RECORDS: HistoryRecord[] = [
     typeBadge: "TWS Business & Lifestyle",
     clientName: "Kunal Mehra",
     phone: "9871122334",
+    auditorName: "TWS Performance Coach",
     score: 58,
     maxScore: 100,
     bandTitle: "Moderate Friction & Drag",
@@ -52,6 +56,7 @@ export const SEED_HISTORY_RECORDS: HistoryRecord[] = [
     typeBadge: "TWS Business & Lifestyle",
     clientName: "Neha Aggarwal",
     phone: "9910554433",
+    auditorName: "TWS Lead Coach",
     score: 82,
     maxScore: 100,
     bandTitle: "High Metabolic Momentum",
@@ -106,6 +111,7 @@ export const SEED_HISTORY_RECORDS: HistoryRecord[] = [
     typeBadge: "TWS Fitness Diagnostic",
     clientName: "Aakash Verma",
     phone: "9899123456",
+    auditorName: "TWS Fitness Coach",
     score: 78,
     maxScore: 100,
     bandTitle: "Athletic Ready / Solid Base",
@@ -186,6 +192,7 @@ export const SEED_HISTORY_RECORDS: HistoryRecord[] = [
     typeBadge: "TWS Clinical Nutrition",
     clientName: "Priya Sharma",
     phone: "9818765432",
+    auditorName: "TWS Clinical Nutritionist",
     score: 68,
     maxScore: 100,
     bandTitle: "Metabolic Drag & Sugar Spikes",
@@ -266,6 +273,7 @@ export const SEED_HISTORY_RECORDS: HistoryRecord[] = [
     typeBadge: "TWS Physio Audit",
     clientName: "Amit Patel",
     phone: "9825012345",
+    auditorName: "Dr. KineticFix",
     score: 62,
     maxScore: 100,
     bandTitle: "Compensatory Strain & Disc Bulge",
@@ -365,6 +373,27 @@ export function getAuditHistory(): HistoryRecord[] {
   return SEED_HISTORY_RECORDS;
 }
 
+export async function fetchAuditHistoryAsync(category = "all"): Promise<HistoryRecord[]> {
+  const localList = getAuditHistory();
+
+  try {
+    const res = await fetch(`/api/history?type=${encodeURIComponent(category)}`);
+    if (res.ok) {
+      const data = await res.json();
+      if (data.success && Array.isArray(data.history)) {
+        // Merge cloud database records with local records (deduplicate by id)
+        const dbIds = new Set(data.history.map((h: HistoryRecord) => h.id));
+        const merged = [...data.history, ...localList.filter((l) => !dbIds.has(l.id))];
+        return merged;
+      }
+    }
+  } catch (err) {
+    console.warn("Failed to fetch history from API, using local storage:", err);
+  }
+
+  return localList;
+}
+
 export function saveAuditToHistory(record: AuditRecord): void {
   if (typeof window === "undefined") return;
 
@@ -379,12 +408,23 @@ export function saveAuditToHistory(record: AuditRecord): void {
         ? "TWS Fitness Diagnostic"
         : "TWS Clinical Nutrition";
 
+    // Read stored auditor profile from localStorage
+    const localAuditorName = localStorage.getItem("tws_auditor_name") || undefined;
+    const localAuditorPhone = localStorage.getItem("tws_auditor_phone") || undefined;
+
+    const auditorName =
+      localAuditorName ||
+      record.business.auditorName ||
+      "TWS Coach";
+
     const newEntry: HistoryRecord = {
       id: record.id,
       type: record.auditType,
       typeBadge,
       clientName: record.business.name || record.business.clientName || "Client Intake",
       phone: record.business.whatsappNumber || record.business.phone || "Not Provided",
+      auditorName,
+      auditorPhone: localAuditorPhone,
       score: record.totalScore,
       maxScore: record.maxScore,
       bandTitle: record.band.title,
@@ -398,11 +438,31 @@ export function saveAuditToHistory(record: AuditRecord): void {
       payload,
     };
 
-    // Remove if duplicate id exists
+    // Save to local storage for instant offline availability
     const filtered = currentList.filter((item) => item.id !== record.id);
     const updated = [newEntry, ...filtered];
-
     localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+
+    // Save asynchronously to Supabase PostgreSQL database table (tws_sample_audit)
+    fetch("/api/audits", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        record,
+        auditor: {
+          name: auditorName,
+          phone: localAuditorPhone,
+        },
+        payload,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          console.log("Successfully saved audit to PostgreSQL tws_sample_audit table, ID:", data.id);
+        }
+      })
+      .catch((err) => console.warn("Background API save to tws_sample_audit error:", err));
   } catch (err) {
     console.warn("Failed to save audit to history:", err);
   }

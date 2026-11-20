@@ -22,8 +22,13 @@ import {
   AlertCircle,
   Eye,
   EyeOff,
+  Sparkles,
 } from "lucide-react";
-import { HistoryRecord, getAuditHistory } from "@/lib/history-storage";
+import {
+  HistoryRecord,
+  getAuditHistory,
+  fetchAuditHistoryAsync,
+} from "@/lib/history-storage";
 
 interface SecretHistoryModalProps {
   isOpen: boolean;
@@ -44,21 +49,50 @@ export function SecretHistoryModal({
   const [showPassword, setShowPassword] = useState(false);
   const [authError, setAuthError] = useState("");
 
+  // Current Device Auditor from localStorage
+  const [currentAuditorName, setCurrentAuditorName] = useState<string>("");
+
   // History Records & Filtering State
   const [historyList, setHistoryList] = useState<HistoryRecord[]>([]);
   const [selectedTab, setSelectedTab] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [visibleCount, setVisibleCount] = useState(5);
+  const [isLoading, setIsLoading] = useState(false);
 
-  // Set default tab when opened
+  // Set default tab when opened & load records
   useEffect(() => {
     if (isOpen) {
       setSelectedTab(activeCategory || "all");
       setSearchQuery("");
       setVisibleCount(5);
-      setHistoryList(getAuditHistory());
       setAuthError("");
       setPasswordInput("");
+
+      // Read local auditor profile from localStorage
+      if (typeof window !== "undefined") {
+        const storedName =
+          localStorage.getItem("tws_auditor_name") ||
+          localStorage.getItem("tws_active_auditor");
+        if (storedName) {
+          try {
+            const parsed = JSON.parse(storedName);
+            setCurrentAuditorName(parsed.name || storedName);
+          } catch {
+            setCurrentAuditorName(storedName);
+          }
+        }
+      }
+
+      // 1. Initial fast local load
+      setHistoryList(getAuditHistory());
+
+      // 2. Background database sync from PostgreSQL tws_sample_audit
+      setIsLoading(true);
+      fetchAuditHistoryAsync(activeCategory || "all")
+        .then((records) => {
+          setHistoryList(records);
+        })
+        .finally(() => setIsLoading(false));
     }
   }, [isOpen, activeCategory]);
 
@@ -87,6 +121,7 @@ export function SecretHistoryModal({
         item.clientName.toLowerCase().includes(q) ||
         item.phone.toLowerCase().includes(q) ||
         item.id.toLowerCase().includes(q) ||
+        (item.auditorName && item.auditorName.toLowerCase().includes(q)) ||
         (item.locality && item.locality.toLowerCase().includes(q)) ||
         item.bandTitle.toLowerCase().includes(q)
       );
@@ -184,7 +219,7 @@ export function SecretHistoryModal({
         </div>
       ) : (
         /* 2. UNLOCKED SECRET AUDIT HISTORY MODAL */
-        <div className="w-full max-w-3xl bg-slate-900 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] text-white">
+        <div className="w-full max-w-4xl bg-slate-900 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] text-white">
           {/* Modal Header */}
           <div className="px-6 py-4.5 border-b border-slate-800 flex items-center justify-between bg-black/40">
             <div className="flex items-center gap-3">
@@ -203,11 +238,11 @@ export function SecretHistoryModal({
                     TWS Diagnostic History
                   </h3>
                   <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
-                    Master Unlocked
+                    Database Synced
                   </span>
                 </div>
                 <p className="text-xs text-slate-400 font-mono mt-0.5">
-                  Historical intake logs, client WhatsApp records & evaluated diagnostics
+                  Database Table: <span className="text-emerald-400">tws_sample_audit</span> · Audited Client Records
                 </p>
               </div>
             </div>
@@ -287,7 +322,7 @@ export function SecretHistoryModal({
                   setSearchQuery(e.target.value);
                   setVisibleCount(5);
                 }}
-                placeholder="Search member by name, WhatsApp phone number, Ref ID or location..."
+                placeholder="Search by client name, auditor name, WhatsApp phone number, Ref ID or location..."
                 className="w-full pl-10 pr-4 py-2 rounded-xl bg-slate-950 border border-slate-700/80 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 text-xs text-white placeholder:text-slate-500 outline-none font-mono"
               />
               {searchQuery && (
@@ -329,12 +364,18 @@ export function SecretHistoryModal({
                     ? "bg-amber-500/20 text-amber-300 border-amber-500/30"
                     : "bg-teal-500/20 text-teal-300 border-teal-500/30";
 
+                const isCurrentAuditor =
+                  currentAuditorName &&
+                  item.auditorName &&
+                  item.auditorName.trim().toLowerCase() === currentAuditorName.trim().toLowerCase();
+
                 return (
                   <div
                     key={item.id}
                     className="pt-3 first:pt-0 pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3 group hover:bg-white/5 p-3 rounded-2xl transition-colors"
                   >
                     <div className="space-y-1.5 min-w-0">
+                      {/* Audited Person Name & Category */}
                       <div className="flex flex-wrap items-center gap-2">
                         <span className="font-black text-sm sm:text-base text-white font-sans group-hover:text-emerald-400 transition-colors">
                           {item.clientName}
@@ -349,7 +390,8 @@ export function SecretHistoryModal({
                         </span>
                       </div>
 
-                      <div className="flex flex-wrap items-center gap-3 text-xs text-slate-400 font-mono">
+                      {/* Meta: Phone, Date, Location & Auditor Tag */}
+                      <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs text-slate-400 font-mono">
                         <span className="flex items-center gap-1 text-slate-300">
                           <Phone className="w-3 h-3 text-slate-500" />
                           <span>{item.phone}</span>
@@ -359,12 +401,34 @@ export function SecretHistoryModal({
                           <Calendar className="w-3 h-3 text-slate-500" />
                           <span>{item.date}</span>
                         </span>
+
                         {item.locality && (
                           <>
                             <span className="text-slate-600">·</span>
                             <span className="truncate max-w-xs">{item.locality}</span>
                           </>
                         )}
+
+                        {/* Auditor Attribution Tag */}
+                        {item.auditorName && (
+                          <>
+                            <span className="text-slate-600">·</span>
+                            <span
+                              className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold inline-flex items-center gap-1 ${
+                                isCurrentAuditor
+                                  ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 shadow-xs"
+                                  : "bg-slate-800 text-slate-300 border border-slate-700"
+                              }`}
+                            >
+                              <User className="w-3 h-3 text-slate-400" />
+                              <span>
+                                Auditor: {item.auditorName}
+                                {isCurrentAuditor ? " (You)" : ""}
+                              </span>
+                            </span>
+                          </>
+                        )}
+
                         <span className="text-slate-600">·</span>
                         <span className="text-slate-500 text-[10px]">Ref #{item.id}</span>
                       </div>
