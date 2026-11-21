@@ -7,7 +7,6 @@ import { BusinessQuestionnaire } from "@/components/questionnaires/BusinessQuest
 import { AuditCompleteStep } from "@/components/AuditCompleteStep";
 import { ReportCover } from "@/components/report/ReportCover";
 import { ReportBreakdown } from "@/components/report/ReportBreakdown";
-import { ReportActionPlan } from "@/components/report/ReportActionPlan";
 import { ReportFindings } from "@/components/report/ReportFindings";
 import {
   ProfileDetails,
@@ -209,7 +208,6 @@ export default function BusinessAuditPage() {
 
             <ReportCover record={completedRecord} />
             <ReportBreakdown sectionScores={completedRecord.sectionScores} auditType="business" />
-            <ReportActionPlan record={completedRecord} />
             <ReportFindings findings={completedRecord.findings} />
           </div>
         )}

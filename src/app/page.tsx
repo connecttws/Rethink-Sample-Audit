@@ -48,9 +48,9 @@ const AUDIT_CARDS: AuditCardConfig[] = [
   {
     type: "business",
     path: "/business",
-    badge: "TWS Lifestyle Health Audit",
+    badge: "TWS Lifestyle Assessment",
     badgeBg: "bg-blue-500/20 text-blue-300 border-blue-400/30",
-    title: "BMI & Lifestyle Health Audit",
+    title: "Lifestyle & Health Assessment",
     tagline: "15-Point Daily Activity, Nutrition, Sleep, Form & Mindset Assessment",
     icon: Activity,
     color: "#2563EB",
@@ -65,9 +65,9 @@ const AUDIT_CARDS: AuditCardConfig[] = [
   {
     type: "fitness",
     path: "/fitness",
-    badge: "TWS Fitness Diagnostic",
+    badge: "TWS Training Diagnostic",
     badgeBg: "bg-emerald-500/20 text-emerald-300 border-emerald-400/30",
-    title: "Fitness & Biomechanics Diagnostic",
+    title: "Training & Biomechanics Diagnostic",
     tagline: "18-Point Posture, Joint Safety, Gym Habits & Energy Screen",
     icon: Dumbbell,
     color: "#10B981",

@@ -7,7 +7,6 @@ import { NutritionQuestionnaire } from "@/components/questionnaires/NutritionQue
 import { AuditCompleteStep } from "@/components/AuditCompleteStep";
 import { ReportCover } from "@/components/report/ReportCover";
 import { ReportBreakdown } from "@/components/report/ReportBreakdown";
-import { ReportActionPlan } from "@/components/report/ReportActionPlan";
 import { ReportFindings } from "@/components/report/ReportFindings";
 import {
   ProfileDetails,
@@ -215,7 +214,6 @@ export default function NutritionAuditPage() {
 
             <ReportCover record={completedRecord} />
             <ReportBreakdown sectionScores={completedRecord.sectionScores} auditType="nutrition" />
-            <ReportActionPlan record={completedRecord} />
             <ReportFindings findings={completedRecord.findings} />
           </div>
         )}

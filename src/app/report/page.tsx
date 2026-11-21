@@ -7,7 +7,6 @@ import { useSearchParams } from "next/navigation";
 import { ReportHeader } from "@/components/report/ReportHeader";
 import { ReportCover } from "@/components/report/ReportCover";
 import { ReportBreakdown } from "@/components/report/ReportBreakdown";
-import { ReportActionPlan } from "@/components/report/ReportActionPlan";
 import { ReportFindings } from "@/components/report/ReportFindings";
 import { AuditRecord, AuditType } from "@/lib/types";
 import {
@@ -26,10 +25,7 @@ function ReportContent({ record }: { record: AuditRecord }) {
       {/* 2. Pillar Score Breakdown */}
       <ReportBreakdown sectionScores={record.sectionScores} auditType={record.auditType} />
 
-      {/* 3. Prescribed Turnaround Blueprint */}
-      <ReportActionPlan record={record} />
-
-      {/* 4. Itemized Findings Breakdown */}
+      {/* 3. Itemized Findings Breakdown */}
       <ReportFindings findings={record.findings} />
 
       {/* Report Footer */}
@@ -37,9 +33,9 @@ function ReportContent({ record }: { record: AuditRecord }) {
         <div className="flex items-center justify-center gap-2 mb-1">
           <p className="font-extrabold text-slate-700 uppercase tracking-wider text-[11px]">
             {record.auditType === "business"
-              ? "TWS Business · Lifestyle & Health Audit"
+              ? "TWS Lifestyle · Health Assessment"
               : record.auditType === "fitness"
-              ? "TWS Fitness · Comprehensive 1-on-1 Fitness Diagnostic"
+              ? "TWS Training · Comprehensive 1-on-1 Training Diagnostic"
               : "TWS Nutrition · Clinical Diet & Metabolic Diagnostic"}
           </p>
         </div>

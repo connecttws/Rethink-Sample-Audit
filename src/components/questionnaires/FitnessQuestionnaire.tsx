@@ -174,7 +174,7 @@ export function FitnessQuestionnaire({
                 Diagnostic Intake
               </h1>
               <p className="text-xs sm:text-sm text-slate-300 font-normal leading-relaxed max-w-2xl">
-                Comprehensive Pre-Pitch 1-on-1 Fitness Diagnostic & Biomechanical Screen.
+                Comprehensive Pre-Pitch 1-on-1 Training Diagnostic & Biomechanical Screen.
               </p>
             </div>
 
@@ -769,7 +769,7 @@ export function FitnessQuestionnaire({
             onClick={handleGenerateClick}
             className="px-6 sm:px-8 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white font-extrabold text-sm sm:text-base tracking-wide flex items-center gap-2.5 shadow-lg shadow-emerald-600/30 transition-all cursor-pointer transform hover:-translate-y-0.5"
           >
-            <span>Generate Fitness Diagnostic Report</span>
+            <span>Generate Training Diagnostic Report</span>
             <ArrowRight className="w-4 h-4" />
           </button>
         </div>

@@ -40,8 +40,8 @@ const AUDIT_THEMES = {
     border: "border-[#1C2541]",
     accent: "#2563EB",
     badgeBg: "bg-blue-500/20 text-blue-300 border-blue-400/30",
-    title: "TWS Business",
-    subtitle: "BMI & Lifestyle Health Audit",
+    title: "TWS Lifestyle",
+    subtitle: "Lifestyle & Health Assessment",
     metricLabel: "Lifestyle Health & Vitals Index",
   },
   fitness: {
@@ -49,9 +49,9 @@ const AUDIT_THEMES = {
     border: "border-[#1E293B]",
     accent: "#10B981",
     badgeBg: "bg-emerald-500/20 text-emerald-300 border-emerald-400/30",
-    title: "TWS Fitness",
-    subtitle: "Comprehensive 1-on-1 Fitness Diagnostic",
-    metricLabel: "Athletic Conditioning Index",
+    title: "TWS Training",
+    subtitle: "1-on-1 Training Diagnostic",
+    metricLabel: "Training & Conditioning Index",
   },
   nutrition: {
     bg: "bg-[#1C130E]",

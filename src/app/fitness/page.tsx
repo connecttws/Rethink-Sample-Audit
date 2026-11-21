@@ -7,7 +7,6 @@ import { FitnessQuestionnaire } from "@/components/questionnaires/FitnessQuestio
 import { AuditCompleteStep } from "@/components/AuditCompleteStep";
 import { ReportCover } from "@/components/report/ReportCover";
 import { ReportBreakdown } from "@/components/report/ReportBreakdown";
-import { ReportActionPlan } from "@/components/report/ReportActionPlan";
 import { ReportFindings } from "@/components/report/ReportFindings";
 import {
   ProfileDetails,
@@ -30,7 +29,7 @@ export default function FitnessAuditPage() {
     phone: "",
     whatsappNumber: "",
     mapsUrl: "",
-    auditorName: "TWS Fitness Coach",
+    auditorName: "TWS Training Coach",
     age: "32",
     biologicalSex: "Male",
     targetHorizon: "Structured 12 Weeks (Recommended)",
@@ -131,7 +130,7 @@ export default function FitnessAuditPage() {
       phone: "",
       whatsappNumber: "",
       mapsUrl: "",
-      auditorName: "TWS Fitness Coach",
+      auditorName: "TWS Training Coach",
       age: "32",
       biologicalSex: "Male",
       targetHorizon: "Structured 12 Weeks (Recommended)",
@@ -215,7 +214,6 @@ export default function FitnessAuditPage() {
 
             <ReportCover record={completedRecord} />
             <ReportBreakdown sectionScores={completedRecord.sectionScores} auditType="fitness" />
-            <ReportActionPlan record={completedRecord} />
             <ReportFindings findings={completedRecord.findings} />
           </div>
         )}

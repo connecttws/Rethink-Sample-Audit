@@ -271,8 +271,8 @@ export function SecretHistoryModal({
           <div className="px-6 py-3 border-b border-slate-800 bg-slate-950/70 flex flex-wrap items-center gap-2">
             {[
               { id: "all", label: "All Audits", icon: Activity },
-              { id: "business", label: "Business / Lifestyle", icon: Building },
-              { id: "fitness", label: "Fitness & Biomechanics", icon: Dumbbell },
+              { id: "business", label: "Lifestyle", icon: Building },
+              { id: "fitness", label: "Training", icon: Dumbbell },
               { id: "nutrition", label: "Clinical Nutrition", icon: Utensils },
               { id: "physio", label: "Physio / Clinical", icon: ShieldCheck },
             ].map((tab) => {

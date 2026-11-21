@@ -15,17 +15,17 @@ interface ReportHeaderProps {
 
 const BRAND_CONFIGS = {
   business: {
-    mark: "TB",
+    mark: "TL",
     gradient: "from-blue-600 to-indigo-700",
-    name: "TWS Business",
-    subtitle: "BMI & Lifestyle Health Audit",
+    name: "TWS Lifestyle",
+    subtitle: "Lifestyle & Health Assessment",
     path: "/business",
   },
   fitness: {
-    mark: "TF",
+    mark: "TT",
     gradient: "from-emerald-500 to-teal-700",
-    name: "TWS Fitness",
-    subtitle: "1-on-1 Fitness Diagnostic",
+    name: "TWS Training",
+    subtitle: "1-on-1 Training Diagnostic",
     path: "/fitness",
   },
   nutrition: {

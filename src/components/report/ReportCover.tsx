@@ -82,9 +82,9 @@ export function ReportCover({ record }: ReportCoverProps) {
             <ShieldCheck className="w-4 h-4 text-emerald-400" />
             <span>
               {record.auditType === "business"
-                ? "TWS Business · Lifestyle Health Audit"
+                ? "TWS Lifestyle · Health Assessment"
                 : record.auditType === "fitness"
-                ? "TWS Fitness · 1-on-1 Diagnostic"
+                ? "TWS Training · 1-on-1 Diagnostic"
                 : "TWS Nutrition · Clinical Diet Intake"}
             </span>
           </div>
@@ -164,9 +164,9 @@ export function ReportCover({ record }: ReportCoverProps) {
             <div>
               <span className="text-xs font-mono font-bold uppercase tracking-widest text-slate-400 block mb-1">
                 {record.auditType === "business"
-                  ? "Local Business Performance Report"
+                  ? "Lifestyle & Health Assessment Report"
                   : record.auditType === "fitness"
-                  ? "Comprehensive 1-on-1 Fitness Diagnostic Report"
+                  ? "Comprehensive 1-on-1 Training Diagnostic Report"
                   : "Clinical Nutrition & Metabolic Health Report"}
               </span>
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight">

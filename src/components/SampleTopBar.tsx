@@ -36,9 +36,9 @@ const AUDIT_BAR_CONFIG: Record<
   }
 > = {
   business: {
-    name: "TWS Business Audit",
+    name: "TWS Lifestyle Audit",
     path: "/business",
-    badge: "TWS Lifestyle Health Audit",
+    badge: "TWS Lifestyle Health Assessment",
     bgClass: "bg-[#0B132B]",
     borderClass: "border-[#1C2541]",
     btnClass: "bg-blue-600 hover:bg-blue-500 text-white shadow-blue-600/30",
@@ -47,9 +47,9 @@ const AUDIT_BAR_CONFIG: Record<
     activeTabClass: "bg-blue-600 text-white font-bold",
   },
   fitness: {
-    name: "TWS Fitness Audit",
+    name: "TWS Training Audit",
     path: "/fitness",
-    badge: "TWS 1-on-1 Fitness Diagnostic",
+    badge: "TWS 1-on-1 Training Diagnostic",
     bgClass: "bg-[#090D16]",
     borderClass: "border-[#1E293B]",
     btnClass: "bg-emerald-600 hover:bg-emerald-500 text-white shadow-emerald-600/30",
@@ -117,7 +117,7 @@ export function SampleTopBar({
                   : "text-slate-400 hover:text-white"
               }`}
             >
-              Business
+              Lifestyle
             </Link>
             <Link
               href="/fitness"
@@ -127,7 +127,7 @@ export function SampleTopBar({
                   : "text-slate-400 hover:text-white"
               }`}
             >
-              Fitness
+              Training
             </Link>
             <Link
               href="/nutrition"

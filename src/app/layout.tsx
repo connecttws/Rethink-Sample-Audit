@@ -22,9 +22,9 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "TWS Sample Audits · Business, Fitness & Nutrition Diagnostics",
+  title: "TWS Sample Audits · Lifestyle, Training & Nutrition Diagnostics",
   description:
-    "Interactive client demonstration suite featuring Business Growth Audit, 1-on-1 Fitness Diagnostic, and Clinical Nutrition Audit with instant WhatsApp report generation.",
+    "Interactive client demonstration suite featuring Lifestyle Health Assessment, 1-on-1 Training Diagnostic, and Clinical Nutrition Audit with instant WhatsApp report generation.",
 };
 
 export default function RootLayout({

@@ -40,9 +40,9 @@ A unified interactive clinical & business diagnostic suite combining **TWS Lifes
 - **Search**: Real-time filtering across member name, phone, auditor, and location.
 
 ### 3. Dedicated Diagnostic Modules
-- 🏢 **`/business` — TWS BMI & Lifestyle Health Audit**:
+- 🏢 **`/business` — TWS Lifestyle & Health Assessment**:
   - 5-Pillar daily activity, nutrition, sleep recovery, form prep, and mindset assessment (15 Points).
-- 🏋️‍♂️ **`/fitness` — TWS 1-on-1 Fitness & Biomechanics Diagnostic**:
+- 🏋️‍♂️ **`/fitness` — TWS 1-on-1 Training & Biomechanics Diagnostic**:
   - 6-Pillar posture, joint safety, desk slouch, gym habits, and energy screen (18 Points) with live BMI math.
 - 🥗 **`/nutrition` — TWS Clinical Nutrition & Metabolic Rate Intake**:
   - 6-Pillar protein density, gut dysbiosis, liquid calorie leaks, and meal cadence screen (18 Points).
@@ -64,9 +64,8 @@ A unified interactive clinical & business diagnostic suite combining **TWS Lifes
 Every generated diagnostic report provides:
 1. **Executive Cover**: Overall score (0–100), benchmark tier, prospect biometrics, and reference ID.
 2. **5 / 6 Pillar Score Breakdown**: Self-contained progress bars comparing current score vs optimal capacity.
-3. **Prescribed Turnaround Protocol**: Structured 12-week intervention recommendations.
-4. **Itemized Findings Breakdown**: Transparent audit of all points evaluated with strategic guidance.
-5. **Universal WhatsApp Export & Print**: Shareable WhatsApp report payload and clean one-click PDF printing.
+3. **Itemized Findings Breakdown**: Transparent audit of all points evaluated with strategic guidance.
+4. **Universal WhatsApp Export & Print**: Shareable WhatsApp report payload and clean one-click PDF printing.
 
 ---
 

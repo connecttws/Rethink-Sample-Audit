@@ -171,7 +171,7 @@ export function BusinessQuestionnaire({
                 <span>Walk-in & Trial Member Intake</span>
               </div>
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white font-sans tracking-tight">
-                BMI & Lifestyle Health Audit
+                Lifestyle & Health Assessment
               </h1>
               <p className="text-xs sm:text-sm text-blue-200/80 font-normal leading-relaxed max-w-2xl">
                 Instantaneous body biometrics, safe target ranges & 5-pillar lifestyle health assessment.

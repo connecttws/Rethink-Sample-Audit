@@ -86,7 +86,7 @@ export function generateWhatsAppReportMessage(record: AuditRecord, reportUrl: st
     const facilityStr = record.business.locality ? `*Facility:* ${record.business.locality}\n` : "";
 
     return (
-      `*TWS • BMI & Lifestyle Health Audit*\n` +
+      `*TWS LIFESTYLE • Health Assessment Summary*\n` +
       `*Member:* ${record.business.name}${ageStr}\n` +
       `*Primary Fitness Goal:* ${record.business.category}\n` +
       facilityStr +
@@ -100,7 +100,7 @@ export function generateWhatsAppReportMessage(record: AuditRecord, reportUrl: st
         .join("\n") +
       `\n\n*Recommended Turnaround Protocol:*\n${record.band.sprintRecommendation}\n${record.band.sprintDetails}\n\n` +
       `*View Full Diagnostic Report Online:*\n${reportUrl}\n\n` +
-      `_Prepared by TWS Lifestyle & Fitness Coaching Team._`
+      `_Prepared by TWS Lifestyle Coaching Team._`
     );
   }
 
@@ -145,21 +145,21 @@ export function generateWhatsAppReportMessage(record: AuditRecord, reportUrl: st
   const gapStr = record.business.weightGapKg ? `*Weight Gap:* ${record.business.weightGapKg}\n` : "";
 
   return (
-    `*TWS FITNESS • Diagnostic Intake Summary*\n` +
-    `*Comprehensive Pre-Pitch 1-on-1 Fitness Diagnostic*\n\n` +
+    `*TWS TRAINING • Diagnostic Intake Summary*\n` +
+    `*Comprehensive Pre-Pitch 1-on-1 Training Diagnostic*\n\n` +
     `*Prospect:* ${record.business.name}${ageSexStr}\n` +
     `*Primary Fitness Goal:* ${record.business.category}\n` +
     horizonStr +
     bmiStr +
     idealStr +
     gapStr +
-    `\n*Total Fitness Score:* ${record.totalScore} / 100 — ${record.band.title}\n\n` +
-    `*6-Pillar Biomechanical & Lifestyle Score:*\n` +
+    `\n*Total Training Score:* ${record.totalScore} / 100 — ${record.band.title}\n\n` +
+    `*6-Pillar Biomechanical & Movement Score:*\n` +
     record.sectionScores
       .map((s) => `• ${s.shortName || s.name}: ${s.score}/${s.maxScore}`)
       .join("\n") +
     `\n\n*Recommended Coaching Protocol:*\n${record.band.sprintRecommendation}\n${record.band.sprintDetails}\n\n` +
     `*View Full Diagnostic Report Online:*\n${reportUrl}\n\n` +
-    `_Prepared by TWS Fitness Coaching & Biomechanics Team._`
+    `_Prepared by TWS Training Coaching & Biomechanics Team._`
   );
 }

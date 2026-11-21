@@ -77,9 +77,9 @@ export function saveAuditToHistory(record: AuditRecord): void {
 
     const typeBadge =
       record.auditType === "business"
-        ? "TWS Business & Lifestyle"
+        ? "TWS Lifestyle"
         : record.auditType === "fitness"
-        ? "TWS Fitness Diagnostic"
+        ? "TWS Training"
         : "TWS Clinical Nutrition";
 
     // Read stored auditor profile from localStorage

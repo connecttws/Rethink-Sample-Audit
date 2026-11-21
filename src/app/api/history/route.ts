@@ -56,9 +56,9 @@ export async function GET(req: NextRequest) {
       type: r.auditType,
       typeBadge:
         r.auditType === "business"
-          ? "TWS Business & Lifestyle"
+          ? "TWS Lifestyle"
           : r.auditType === "fitness"
-          ? "TWS Fitness Diagnostic"
+          ? "TWS Training"
           : r.auditType === "nutrition"
           ? "TWS Clinical Nutrition"
           : "TWS Physio Audit",
